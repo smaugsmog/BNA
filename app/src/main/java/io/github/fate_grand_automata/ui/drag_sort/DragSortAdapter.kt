@@ -1,10 +1,12 @@
 package io.github.fate_grand_automata.ui.drag_sort
 
 import android.annotation.SuppressLint
+import android.graphics.Bitmap
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -20,11 +22,13 @@ class DragSortAdapter<T>(
     class ItemViewConfig(
         @ColorInt val foregroundColor: Int,
         @ColorInt val backgroundColor: Int,
-        val text: String
+        val text: String,
+        val bitmap: Bitmap? = null
     )
 
     class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView),
         IItemTouchHelperViewHolder {
+        val imageView: ImageView = ItemView.findViewById(R.id.drag_sort_image)
         val textView: TextView = ItemView.findViewById(R.id.drag_sort_text)
 
         override fun onItemSelected() {}
@@ -54,9 +58,19 @@ class DragSortAdapter<T>(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val viewConfig = viewConfigGrabber(items[position])
 
-        holder.textView.text = viewConfig.text
-        holder.itemView.setBackgroundColor(viewConfig.backgroundColor)
-        holder.textView.setTextColor(viewConfig.foregroundColor)
+        val bitmap = viewConfig.bitmap
+        if (bitmap != null) {
+            holder.textView.visibility = View.GONE
+            holder.imageView.visibility = View.VISIBLE
+            holder.imageView.setImageBitmap(bitmap)
+            holder.itemView.setBackgroundColor(viewConfig.backgroundColor)
+        } else {
+            holder.imageView.visibility = View.GONE
+            holder.textView.visibility = View.VISIBLE
+            holder.textView.text = viewConfig.text
+            holder.itemView.setBackgroundColor(viewConfig.backgroundColor)
+            holder.textView.setTextColor(viewConfig.foregroundColor)
+        }
     }
 
     override fun onItemMove(From: Int, To: Int) {

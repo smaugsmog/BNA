@@ -1,7 +1,10 @@
 package io.github.fate_grand_automata.ui.void_mirror
 
 import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.Color
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -16,13 +19,15 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.key
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.graphics.painter.BitmapPainter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import coil3.compose.AsyncImage
 import io.github.fate_grand_automata.R
 import io.github.fate_grand_automata.scripts.enums.VoidMirrorBuff
 import io.github.fate_grand_automata.ui.Heading
@@ -35,6 +40,12 @@ import io.github.fate_grand_automata.ui.drag_sort.DragSortAdapter
 fun VoidMirrorView(vm: VoidMirrorViewModel) {
     val dialog = FgaDialog()
     val context = LocalContext.current
+
+    val buffBitmaps = remember(vm) {
+        vm.allBuffs.associate { resolved ->
+            resolved.buff to loadBuffBitmap(context, resolved.buff)
+        }
+    }
 
     Box(modifier = Modifier.fillMaxSize()) {
         Column(
@@ -64,8 +75,8 @@ fun VoidMirrorView(vm: VoidMirrorViewModel) {
                             DragSortAdapter.ItemViewConfig(
                                 foregroundColor = Color.WHITE,
                                 backgroundColor = buff.backgroundColor(context),
-                                text = buff.name
-
+                                text = buff.name,
+                                bitmap = buffBitmaps[buff]
                             )
                         }
                     )
@@ -91,18 +102,31 @@ fun VoidMirrorView(vm: VoidMirrorViewModel) {
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    AsyncImage(
-                        model = resolved.imageUri,
-                        contentDescription = resolved.buff.name,
-                        contentScale = ContentScale.Fit,
-                        modifier = Modifier.size(32.dp)
-                    )
+                    val bitmap = buffBitmaps[resolved.buff]
+                    if (bitmap != null) {
+                        Image(
+                            painter = BitmapPainter(bitmap.asImageBitmap()),
+                            contentDescription = resolved.buff.name,
+                            contentScale = ContentScale.Fit,
+                            modifier = Modifier.size(32.dp)
+                        )
+                    }
                     Text(resolved.buff.name)
                 }
             }
         )
 
         buttons(onSubmit = { })
+    }
+}
+
+private fun loadBuffBitmap(context: Context, buff: VoidMirrorBuff): Bitmap? {
+    return try {
+        context.assets.open("En/${buff.image.path}").use { stream ->
+            BitmapFactory.decodeStream(stream)
+        }
+    } catch (e: Exception) {
+        null
     }
 }
 
