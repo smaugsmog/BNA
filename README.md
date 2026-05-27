@@ -21,7 +21,10 @@ This is to automate the tedious tapping with no brainpower and doesn't help with
   - Automatically collects gifts and battles guns
   - Ignores purchase offers. Cannot scroll currently, so it will miss items
 
+## Potential issues and fixes
 
+- If Android prevents you from turning on accessibility for your safety:
+  - Settings > Apps > View app > 3 dots > allow restricted settings
 
 ----
 
