@@ -6,14 +6,7 @@ import io.github.fate_grand_automata.scripts.enums.MaterialEnum
 import io.github.lib_automata.Pattern
 
 interface IImageLoader {
-    operator fun get(img: Images, gameServer: GameServer? = null, masked: Boolean = false): Pattern
-
-    /**
-     * Loads an image template whose non-icon background has been filled with a flat color.
-     * The top-left pixel is treated as the background color and masked out during matching.
-     */
-    fun getMasked(img: Images, gameServer: GameServer? = null): Pattern =
-        get(img, gameServer, masked = true)
+    operator fun get(img: Images, gameServer: GameServer? = null): Pattern
 
     fun loadSupportPattern(kind: SupportImageKind, name: String): List<Pattern>
 
