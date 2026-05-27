@@ -44,11 +44,15 @@ class Map @Inject constructor(
         try {
             // Step 1: Collect supplies
             bnaLocations.mapSupplies.click()
-            2.seconds.wait()
-//            images[Images.PopupConfirmButton] in bnaLocations.popupConfirmButtonRegion
-            bnaLocations.popupConfirmButton.click()
+            val maxRetries = 10
+            for (i in 1..maxRetries){
+                0.5.seconds.wait()
+                val popupButton = bnaLocations.popupConfirmButtonRegion.find(images[Images.PopupConfirmButton])
+                if (popupButton != null){
+                    Location(popupButton.region.center.x + 200, popupButton.region.center.y).click()
+                }
+            }
             1.seconds.wait()
-//            images[Images.PopupConfirmButton] in bnaLocations.popupConfirmButtonRegion
 
             // Step 2: Check for active badge
             val badgeResult = useSameSnapIn {

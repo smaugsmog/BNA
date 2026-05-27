@@ -258,7 +258,17 @@ class ScriptManager @Inject constructor(
             }
 
             is VoidMirror.ExitException -> {
-                messages.notify("Void Mirror completed: ${e.state.successfulRuns} successful, ${e.state.totalAttempts} attempts, ${e.state.failedRetries} failed retries")
+                when (e.reason) {
+                    is VoidMirror.ExitReason.MaxRetriesReached -> {
+                        val msg = "Defeat limit reached after ${e.state.totalAttempts} attempts with ${e.state.successfulRuns} wins"
+                        messages.notify(msg)
+                        messageBox.show(scriptExitedString, msg)
+                    }
+                    else -> {
+                        val msg = "Void Mirror completed: ${e.state.successfulRuns} successful, ${e.state.totalAttempts} attempts, ${e.state.failedRetries} failed retries"
+                        messages.notify(msg)
+                    }
+                }
             }
 
             is Dailies.ExitException -> {

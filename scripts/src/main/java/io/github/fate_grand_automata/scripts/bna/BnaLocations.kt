@@ -52,7 +52,7 @@ class BnaLocations @Inject constructor(
             .xFromCenter()
             .yFromCenter()
     /** Confirm button on the supply collection dialog (centered). */
-    val popupConfirmButtonRegion = Region(-212,292, 30, 110)
+    val popupConfirmButtonRegion = Region(-212,270, 30, 450)
         .xFromCenter()
         .yFromCenter()
 
