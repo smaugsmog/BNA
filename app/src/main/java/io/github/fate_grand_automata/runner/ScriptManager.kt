@@ -22,6 +22,12 @@ import io.github.fate_grand_automata.scripts.entrypoints.AutoGiftBox
 import io.github.fate_grand_automata.scripts.entrypoints.AutoLottery
 import io.github.fate_grand_automata.scripts.entrypoints.AutoServantLevel
 import io.github.fate_grand_automata.scripts.entrypoints.SupportImageMaker
+import io.github.fate_grand_automata.scripts.bna.entrypoints.Dailies
+import io.github.fate_grand_automata.scripts.bna.entrypoints.Metaspace
+import io.github.fate_grand_automata.scripts.bna.entrypoints.Map
+import io.github.fate_grand_automata.scripts.bna.entrypoints.VoidMirror
+import io.github.fate_grand_automata.ui.launcher.BnaScript
+import io.github.fate_grand_automata.ui.launcher.BnaScriptLauncher
 import io.github.fate_grand_automata.scripts.enums.GameServer
 import io.github.fate_grand_automata.scripts.enums.ScriptModeEnum
 import io.github.fate_grand_automata.scripts.prefs.IPreferences
@@ -234,6 +240,31 @@ class ScriptManager @Inject constructor(
                 messageBox.show(scriptExitedString, msg)
             }
 
+            is Metaspace.ExitException -> {
+                when (e.reason) {
+                    is Metaspace.ExitReason.InvalidTeam -> {
+                        val msg = "Your team appears invalid for this battle. Please update your team and try again."
+                        messages.notify(msg)
+                        messageBox.show(scriptExitedString, msg)
+                    }
+                    else -> {
+                        messages.notify("Metaspace completed: ${e.state.runsCompleted} runs")
+                    }
+                }
+            }
+
+            is Map.ExitException -> {
+                messages.notify("Map completed: ${e.state.boxesCollected} boxes, ${e.state.battlesFought} battles")
+            }
+
+            is VoidMirror.ExitException -> {
+                messages.notify("Void Mirror completed: ${e.state.successfulRuns} successful, ${e.state.totalAttempts} attempts, ${e.state.failedRetries} failed retries")
+            }
+
+            is Dailies.ExitException -> {
+                messages.notify("Dailies completed: ${e.state.stepsCompleted} steps")
+            }
+
             is ScriptAbortException -> {
                 // user aborted. do nothing
             }
@@ -344,19 +375,24 @@ class ScriptManager @Inject constructor(
             .build()
 
         val hiltEntryPoint = EntryPoints.get(scriptComponent, ScriptEntryPoint::class.java)
-        val detectedMode = hiltEntryPoint.autoDetect().get()
 
         scope.launch {
-            val resp = scriptPicker(context, detectedMode)
+            val bnaChoice = bnaScriptPicker(context)
 
             uiStateHolder.isPlayButtonEnabled = true
-            launcherResponseHandler.handle(resp)
 
-            if (resp !is ScriptLauncherResponse.Cancel) {
+            if (bnaChoice != null) {
                 delay(500)
                 runEntryPoint(
                     screenshotService = screenshotService,
-                    entryPointProvider = { getEntryPoint(hiltEntryPoint) }
+                    entryPointProvider = {
+                        when (bnaChoice) {
+                            BnaScript.Metaspace -> hiltEntryPoint.metaspace()
+                            BnaScript.Map -> hiltEntryPoint.map()
+                            BnaScript.VoidMirror -> hiltEntryPoint.voidMirror()
+//                            BnaScript.Dailies -> hiltEntryPoint.dailies()
+                        }
+                    }
                 )
             }
         }
@@ -446,6 +482,35 @@ class ScriptManager @Inject constructor(
     fun showStatus(status: Exception) {
         if (status is AutoBattle.ExitException) {
             scope.launch { showBattleExit(service, status) }
+        }
+    }
+
+    private suspend fun bnaScriptPicker(
+        context: Context
+    ): BnaScript? = withContext(Dispatchers.Main) {
+        suspendCoroutine { continuation ->
+            var dialog: DialogInterface? = null
+
+            val composeView = FakedComposeView(context) {
+                BnaScriptLauncher(
+                    onResponse = {
+                        continuation.resume(it)
+                        dialog?.dismiss()
+                    }
+                )
+            }
+
+            dialog = showOverlayDialog(context) {
+                setView(composeView.view)
+
+                setOnDismissListener {
+                    composeView.close()
+                    try {
+                        continuation.resume(null)
+                    } catch (_: IllegalStateException) {
+                    }
+                }
+            }
         }
     }
 }

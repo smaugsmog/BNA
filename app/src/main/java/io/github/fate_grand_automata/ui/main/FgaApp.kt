@@ -19,6 +19,7 @@ import io.github.fate_grand_automata.ui.battle_config_item.BattleConfigDestinati
 import io.github.fate_grand_automata.ui.battle_config_item.BattleConfigScreen
 import io.github.fate_grand_automata.ui.battle_config_list.BattleConfigListScreen
 import io.github.fate_grand_automata.ui.card_priority.CardPriorityScreen
+import io.github.fate_grand_automata.ui.void_mirror.VoidMirrorScreen
 import io.github.fate_grand_automata.ui.fine_tune.FineTuneScreen
 import io.github.fate_grand_automata.ui.more.MoreOptionsScreen
 import io.github.fate_grand_automata.ui.onboarding.OnboardingScreen
@@ -71,6 +72,10 @@ fun FgaApp(
                                 context.startActivity(intent)
                             }
 
+                            MainScreenDestinations.VoidMirror -> {
+                                navController.navigate(NavConstants.voidMirror)
+                            }
+
                             MainScreenDestinations.BattleConfigs -> {
                                 navController.navigate(NavConstants.battleConfigs)
                             }
@@ -118,6 +123,11 @@ fun FgaApp(
                             }
                         }
                     }
+                )
+            }
+            composable(NavConstants.voidMirror) {
+                VoidMirrorScreen(
+                    vm = hiltViewModel()
                 )
             }
             composable(NavConstants.battleConfigs) {
@@ -191,6 +201,7 @@ object NavConstants {
     const val battleConfigIdKey = "id"
     const val moreOptions = "more"
     const val fineTune = "fineTune"
+    const val voidMirror = "voidMirror"
     const val cardPriority = "cardPriority"
     const val preferredSupport = "preferredSupport"
     const val spam = "spam"

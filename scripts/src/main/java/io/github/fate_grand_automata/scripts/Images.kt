@@ -94,4 +94,33 @@ enum class Images(val path: String) {
     GrandCeLabel("grand_ce_label.png"),
     BondCeEffectDefault("bond_ce_effect_default.png"),
     BondCeEffectNP("bond_ce_effect_np.png"),
+
+    // -----------------------------------------------------------------------------------------------
+    // BNA images
+    // Reminder - images must be 720p. rescale manually
+    BnaVictory("BN/victory_bar.png"),
+    BnaDefeat("BN/defeat_bar.png"),
+    BattleContinueIcon("BN/battle_continue_button.png"),
+    BattleSkipButton("BN/battle_skip.png"),
+    PopupConfirmButton("BN/confirm_button.png"),
+
+    MapActiveBadge("BN/map_active_badge.png"),
+    MapAreaLocked("BN/map_area_locked_crop.png"),
+    MapMissionGift("BN/map_gift.png"),
+    MapMissionGunBlue("BN/map_blue_gun.png"),
+    MapMissionGunPurple("BN/map_purple_gun.png"),
+    MapMissionGunYellow("BN/map_yellow_gun.png"),
+    MapMissionOffer("BN/map_heart.png"),
+    MapBattleTeamConfirm("BN/map_battle_team_confirm.png"),
+
+    VoidBuffHP("BN/void_hp.png"),
+    VoidBuffAttack("BN/void_attack.png"),
+    VoidBuffBurn("BN/void_burn.png"),
+    VoidBuffCritDmg("BN/void_crit_dmg.png"),
+    VoidBuffThunder("BN/void_thunder.png"),
+    VoidBuffInspiration("BN/void_inspiration.png"),
+    VoidRageCritDmg("BN/void_rage_crit_dmg.png"),
+    VoidRageAttack("BN/void_rage_attack.png"),
+
+    MetaSpaceBattleButton("BN/meta_battle_button.png"),
 }

@@ -46,4 +46,10 @@ class ScriptAreaTransforms @Inject constructor(
 
     override fun Region.yFromBottom() =
         this + Location(0, scriptArea.bottom)
+
+    override fun Location.yFromCenter() =
+        this + Location(0, scriptArea.center.y)
+
+    override fun Region.yFromCenter() =
+        this + Location(0, scriptArea.center.y)
 }

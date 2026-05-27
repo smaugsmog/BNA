@@ -85,19 +85,14 @@ class FgoGameAreaManager(
     private val isUltraWide = gameSizeWithBorders.widerThan(21, 9)
 
     private val gameAreaIgnoringNotch by lazy {
-        when {
-            // For wider than 21:9 screens, blue borders appear on sides
-            isUltraWide -> calculateGameAreaWithoutBorders(
-                Size(3360, 1440),
+        when (gameSizeWithBorders) {
+            // 2400x1080 has 50px black bars on each side
+            Size(2400, 1080) -> calculateGameAreaWithoutBorders(
+                Size(2300, 1080),
                 gameSizeWithBorders,
-                scaleBy.rate
+                1.0
             )
-            isWide -> Region(Location(), gameSizeWithBorders)
-            else -> calculateGameAreaWithoutBorders(
-                scriptSize,
-                gameSizeWithBorders,
-                scaleBy.rate
-            )
+            else -> Region(Location(), gameSizeWithBorders)
         }
     }
 

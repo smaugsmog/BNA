@@ -5,6 +5,7 @@ import com.fredporciuncula.flow.preferences.Serializer
 import dagger.hilt.android.qualifiers.ApplicationContext
 import io.github.fate_grand_automata.scripts.enums.GameServer
 import io.github.fate_grand_automata.scripts.enums.ScriptModeEnum
+import io.github.fate_grand_automata.scripts.enums.VoidMirrorBuff
 import io.github.lib_automata.Location
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -124,6 +125,30 @@ class PrefsCore @Inject constructor(
             override fun serialize(value: List<GameServer>): String = value.joinToString(separator)
 
         }
+    )
+
+    val voidMirrorBuffPriority = maker.serialized(
+        "void_mirror_buff_priority",
+        serializer = object : Serializer<List<VoidMirrorBuff>> {
+            private val separator = ","
+
+            override fun deserialize(serialized: String) =
+                serialized
+                    .split(separator)
+                    .map { m ->
+                        try {
+                            enumValueOf<VoidMirrorBuff>(m)
+                        } catch (e: Exception) {
+                            null
+                        }
+                    }
+                    .filterNotNull()
+
+            override fun serialize(value: List<VoidMirrorBuff>) =
+                value
+                    .joinToString(separator) { m -> m.toString() }
+        },
+        default = emptyList()
     )
 
     private val battleConfigMap = mutableMapOf<String, BattleConfigCore>()

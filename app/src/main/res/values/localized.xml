@@ -218,7 +218,7 @@ Copy or rename it if you want to keep it."</string>
     <string name="p_support_class_berserker">"Berserker"</string>
     <string name="p_support_class_extra">"Extra"</string>
     <string name="p_support_class_mix">"Mix"</string>
-    <string name="overlay_notification_text">"The FGA service is currently running to show the Play button and to take screenshots if needed."</string>
+    <string name="overlay_notification_text">"The BNA service is currently running to show the Play button and to take screenshots if needed."</string>
     <string name="notification_stop">"Stop"</string>
     <string name="accessibility_service">"Accessibility Service: "</string>
     <string name="accessibility_enabled">"ENABLED"</string>
@@ -226,7 +226,7 @@ Copy or rename it if you want to keep it."</string>
     <string name="accessibility_disable">"DISABLE"</string>
     <string name="accessibility_enable_in_settings">"ENABLE IN SETTINGS"</string>
     <string name="accessibility_disabled_title">"Accessibility Disabled"</string>
-    <string name="accessibility_disabled_message">"FGA will need to use Android accessibility features to simulate touch screen inputs for you in FGO.
+    <string name="accessibility_disabled_message">"BNA will need to use Android accessibility features to simulate touch screen inputs for you in FGO.
 
 Please turn on accessibility for this app from System settings. If it is already On, turn it OFF and start again."</string>
     <string name="accessibility_disabled_go_to_settings">"Go To Settings"</string>
@@ -382,12 +382,12 @@ Please turn on accessibility for this app from System settings. If it is already
     <string name="p_game_area_custom_top">"Top"</string>
     <string name="p_game_area_custom_right">"Right"</string>
     <string name="p_game_area_custom_bottom">"Bottom"</string>
-    <string name="p_welcome">"Welcome to FGA!"</string>
+    <string name="p_welcome">"Welcome to BNA!"</string>
     <string name="p_welcome_description">"This screen will guide you through the most important setup steps."</string>
     <string name="p_battery_optimization">"Battery optimization"</string>
-    <string name="p_battery_optimization_description">"FGA requires unrestricted battery settings, otherwise it will randomly stop working after some time.
+    <string name="p_battery_optimization_description">"BNA requires unrestricted battery settings, otherwise it will randomly stop working after some time.
 
-After pressing on the button, switch the app filter from \"Not optimized\" to \"All apps\" and set FGA to \"Do not optimize\"."</string>
+After pressing on the button, switch the app filter from \"Not optimized\" to \"All apps\" and set BNA to \"Do not optimize\"."</string>
     <string name="p_battery_optimization_action">"Disable battery optimization"</string>
     <string name="p_battery_optimization_dontkillmyapp">"You may also need to disable more optimizations specific to your device. Guides are available on %s."</string>
     <string name="p_youtube_guide">"Youtube guide"</string>
@@ -491,4 +491,9 @@ After pressing on the button, switch the app filter from \"Not optimized\" to \"
     <string name="state_off">Off</string>
     <string name="save">Save</string>
     <string name="reset">Reset</string>
+
+    <string name="p_void_mirror">"Void Mirror"</string>
+    <string name="p_void_mirror_summary">"Configure Void Mirror buff priorities"</string>
+    <string name="vm_select_buffs">"Select Buffs"</string>
+    <string name="vm_no_buffs_selected">"No buffs selected. Tap Select Buffs to choose."</string>
 </resources>

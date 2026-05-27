@@ -212,6 +212,7 @@ sealed class MainScreenDestinations {
     object TroubleshootingGuide : MainScreenDestinations()
     object Discord : MainScreenDestinations()
     object Donate : MainScreenDestinations()
+    object VoidMirror : MainScreenDestinations()
     object BattleConfigs : MainScreenDestinations()
     object MoreOptions : MainScreenDestinations()
     object AccessibilitySettings : MainScreenDestinations()
@@ -271,10 +272,10 @@ private fun MainScreenContent(
                 ) {
                     Column {
                         Preference(
-                            title = stringResource(R.string.p_battle_config),
-                            summary = stringResource(R.string.p_battle_config_summary),
+                            title = stringResource(R.string.p_void_mirror),
+                            summary = stringResource(R.string.p_void_mirror_summary),
                             icon = icon(R.drawable.ic_formation),
-                            onClick = { navigate(MainScreenDestinations.BattleConfigs) }
+                            onClick = { navigate(MainScreenDestinations.VoidMirror) }
                         )
 
                         HorizontalDivider()

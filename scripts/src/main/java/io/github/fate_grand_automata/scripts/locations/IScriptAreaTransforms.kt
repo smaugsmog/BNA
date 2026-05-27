@@ -15,4 +15,6 @@ interface IScriptAreaTransforms {
     fun Region.xFromRight(): Region
     fun Location.yFromBottom(): Location
     fun Region.yFromBottom(): Region
+    fun Location.yFromCenter(): Location
+    fun Region.yFromCenter(): Region
 }

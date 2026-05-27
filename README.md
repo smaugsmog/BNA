@@ -1,8 +1,14 @@
-# Fate/Grand Automata
+# Battle Night Automata
 
-[![CI](https://github.com/Fate-Grand-Automata/FGA/actions/workflows/ci.yml/badge.svg)](https://github.com/Fate-Grand-Automata/FGA/actions/workflows/ci.yml)
+This is an automation tool for Battle Night, built on the base of [Fate/Grand Automata](https://github.com/Fate-Grand-Automata/FGA)
 
-[![Discord Banner 2](https://discordapp.com/api/guilds/1117873862500163684/widget.png?style=banner2)](https://tinyurl.com/2z2d6wuz)
+This is to automate the tedious tapping with no brainpower and doesn't help with aspects that require thought or even much variation.
+
+----
+
+--- Original README below ---
+
+----
 
 Auto-battle app for FGO (Android 7 or later, no need for root on phones).
 
