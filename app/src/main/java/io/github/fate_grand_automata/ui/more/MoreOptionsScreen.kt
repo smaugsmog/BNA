@@ -66,9 +66,9 @@ private fun MoreOptionsContent(
                         contentPadding = PaddingValues(bottom = 16.dp)
                     ) {
                         when (it) {
-                            MoreSettingsGroup.Battle -> {
-                                battleGroup(vm.prefsCore)
-                            }
+//                            MoreSettingsGroup.Battle -> {
+//                                battleGroup(vm.prefsCore)
+//                            }
 
                             MoreSettingsGroup.Storage -> {
                                 item {
@@ -102,11 +102,13 @@ private fun MoreOptionsContent(
 }
 
 private enum class MoreSettingsGroup {
-    Battle, Storage, Advanced;
+//    Battle,
+    Storage,
+    Advanced;
 
     val stringRes
         get() = when (this) {
-            Battle -> R.string.p_script_mode_battle
+//            Battle -> R.string.p_script_mode_battle
             Storage -> R.string.p_storage
             Advanced -> R.string.p_advanced
         }

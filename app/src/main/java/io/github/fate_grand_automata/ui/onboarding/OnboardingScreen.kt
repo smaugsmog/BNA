@@ -59,7 +59,7 @@ fun OnboardingContent(
         listOf(
             WelcomeScreen(vm),
             PickLanguage(vm),
-            PickDirectory(vm),
+//            PickDirectory(vm),
             DisableBatteryOptimization(vm),
 //            YoutubeVideo(vm)
         ).filter { !it.shouldSkip() }

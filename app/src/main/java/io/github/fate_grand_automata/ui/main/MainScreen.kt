@@ -147,11 +147,12 @@ fun MainScreen(
 
     MainScreenContent(
         navigate = {
-            if (it is MainScreenDestinations.BattleConfigs) {
-                if (vm.ensureRootDir(context, pickDirectory)) {
-                    navigate(it)
-                }
-            } else navigate(it)
+//            if (it is MainScreenDestinations.BattleConfigs) {
+//                if (vm.ensureRootDir(context, pickDirectory)) {
+//                    navigate(it)
+//                }
+//            } else
+                navigate(it)
         },
         overlayServiceStarted = overlayServiceStarted,
         toggleOverlayService = { toggleOverlayService() },
@@ -208,12 +209,12 @@ private fun toggleOverlayService(
 }
 
 sealed class MainScreenDestinations {
-    object Releases : MainScreenDestinations()
-    object TroubleshootingGuide : MainScreenDestinations()
-    object Discord : MainScreenDestinations()
-    object Donate : MainScreenDestinations()
+//    object Releases : MainScreenDestinations()
+//    object TroubleshootingGuide : MainScreenDestinations()
+//    object Discord : MainScreenDestinations()
+//    object Donate : MainScreenDestinations()
     object VoidMirror : MainScreenDestinations()
-    object BattleConfigs : MainScreenDestinations()
+//    object BattleConfigs : MainScreenDestinations()
     object MoreOptions : MainScreenDestinations()
     object AccessibilitySettings : MainScreenDestinations()
     object OverlaySettings : MainScreenDestinations()
@@ -235,27 +236,27 @@ private fun MainScreenContent(
         ) {
             item {
                 Heading(stringResource(R.string.app_name)) {
-                    HeadingButton(
-                        text = "Build: ${BuildConfig.VERSION_CODE}",
-                        onClick = { navigate(MainScreenDestinations.Releases) }
-                    )
-
-                    HeadingButton(
-                        text = stringResource(R.string.troubleshoot),
-                        onClick = { navigate(MainScreenDestinations.TroubleshootingGuide) }
-                    )
-
-                    HeadingButton(
-                        text = stringResource(R.string.discord),
-                        icon = icon(R.drawable.ic_discord),
-                        onClick = { navigate(MainScreenDestinations.Discord) }
-                    )
-
-                    HeadingButton(
-                        text = stringResource(R.string.donate),
-                        icon = icon(R.drawable.ic_donate),
-                        onClick = { navigate(MainScreenDestinations.Donate) }
-                    )
+//                    HeadingButton(
+//                        text = "Build: ${BuildConfig.VERSION_CODE}",
+//                        onClick = { navigate(MainScreenDestinations.Releases) }
+//                    )
+//
+//                    HeadingButton(
+//                        text = stringResource(R.string.troubleshoot),
+//                        onClick = { navigate(MainScreenDestinations.TroubleshootingGuide) }
+//                    )
+//
+//                    HeadingButton(
+//                        text = stringResource(R.string.discord),
+//                        icon = icon(R.drawable.ic_discord),
+//                        onClick = { navigate(MainScreenDestinations.Discord) }
+//                    )
+//
+//                    HeadingButton(
+//                        text = stringResource(R.string.donate),
+//                        icon = icon(R.drawable.ic_donate),
+//                        onClick = { navigate(MainScreenDestinations.Donate) }
+//                    )
 
                 }
 

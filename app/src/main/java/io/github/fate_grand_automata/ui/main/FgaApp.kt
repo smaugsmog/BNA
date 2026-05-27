@@ -76,9 +76,9 @@ fun FgaApp(
                                 navController.navigate(NavConstants.voidMirror)
                             }
 
-                            MainScreenDestinations.BattleConfigs -> {
-                                navController.navigate(NavConstants.battleConfigs)
-                            }
+//                            MainScreenDestinations.BattleConfigs -> {
+//                                navController.navigate(NavConstants.battleConfigs)
+//                            }
 
                             MainScreenDestinations.MoreOptions -> {
                                 navController.navigate(NavConstants.moreOptions)
@@ -93,21 +93,21 @@ fun FgaApp(
                                 context.startActivity(intent)
                             }
 
-                            MainScreenDestinations.Releases -> {
-                                context.openLinkIntent(R.string.link_releases)
-                            }
-
-                            MainScreenDestinations.TroubleshootingGuide -> {
-                                context.openLinkIntent(R.string.link_troubleshoot)
-                            }
-
-                            MainScreenDestinations.Discord -> {
-                                context.openLinkIntent(R.string.link_discord)
-                            }
-
-                            MainScreenDestinations.Donate -> {
-                                context.openLinkIntent(R.string.link_donate)
-                            }
+//                            MainScreenDestinations.Releases -> {
+//                                context.openLinkIntent(R.string.link_releases)
+//                            }
+//
+//                            MainScreenDestinations.TroubleshootingGuide -> {
+//                                context.openLinkIntent(R.string.link_troubleshoot)
+//                            }
+//
+//                            MainScreenDestinations.Discord -> {
+//                                context.openLinkIntent(R.string.link_discord)
+//                            }
+//
+//                            MainScreenDestinations.Donate -> {
+//                                context.openLinkIntent(R.string.link_donate)
+//                            }
                         }
                     }
                 )
