@@ -4,6 +4,25 @@ This is an automation tool for Battle Night, built on the base of [Fate/Grand Au
 
 This is to automate the tedious tapping with no brainpower and doesn't help with aspects that require thought or even much variation.
 
+## Modes
+
+- Void Mirror
+  - Start on the void mirror screen, with a team already selected and a buff ready to select.
+    Easiest way is to beat one level and start it on the next run.
+  - The script will battle until it loses 10 times in a row.
+  - Buffs will be selected based on the buff priority set in the Void Mirror settings menu in the app
+    - Buffs will be ordered based on selection. Drag the colored blocks to reorder. Buffs on the left are prioritised.
+- MetaSpace
+  - Starts on the team selection screen with a team already selected. Press battle, pick a team, then start the script.
+  - The script will battle up to 10 times and then stop.
+- Map Mission
+  - Start from the mission screen. Can go back 1 map if you have a locked screen.
+  - Collects supplies, then goes to the active map and looks for Gifts and Guns.
+  - Automatically collects gifts and battles guns
+  - Ignores purchase offers. Cannot scroll currently, so it will miss items
+
+
+
 ----
 
 --- Original README below ---
