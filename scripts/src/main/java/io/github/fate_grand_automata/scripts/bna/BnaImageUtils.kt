@@ -12,13 +12,14 @@ fun IFgoAutomataApi.findAndClick(
     searchRegion: Region,
     clickXOffset: Int = 0,
     clickYOffset: Int = 0,
+    similarity: Double? = null,
     retryDelay: Duration = 100.milliseconds,
     maxRetries: Int = 30
 ): Boolean {
     var found = false
 
     for (i in 1..maxRetries) {
-        val match = searchRegion.find(image)
+        val match = searchRegion.find(image, similarity)
         if (match != null) {
             Location(
                 match.region.center.x + clickXOffset,

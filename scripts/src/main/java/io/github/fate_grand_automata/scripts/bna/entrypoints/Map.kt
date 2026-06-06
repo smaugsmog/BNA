@@ -55,15 +55,19 @@ class Map @Inject constructor(
                 searchRegion = bnaLocations.popupConfirmButtonRegion,
                 clickXOffset = 200,
             )
-            1.seconds.wait()
+            0.5.seconds.wait()
 
             // Step 2: Check for active badge
             val badgeResult = useSameSnapIn {
-                val badgeFound = images[Images.MapActiveBadge] in bnaLocations.mapBadgeSearchRegion
+                val badgeFound = findAndClick(
+                    image = images[Images.MapActiveBadge],
+                    searchRegion = bnaLocations.mapBadgeSearchRegion,
+                    clickXOffset = -177,
+                    clickYOffset = -24,
+                    maxRetries = 5
+                )
 
-                if (badgeFound) {
-                    bnaLocations.mapNavClickFromBadge.click()
-                } else {
+                if (!badgeFound) {
                     val locked = images[Images.MapAreaLocked] in bnaLocations.areaLockedIconRegion
 
                     if (locked) {
@@ -71,7 +75,7 @@ class Map @Inject constructor(
                     }
                 }
             }
-            3.seconds.wait()
+            1.seconds.wait()
 
             // Step 3: Main mission scanning loop
             val mapArea = bnaLocations.mapSearchArea
@@ -148,15 +152,22 @@ class Map @Inject constructor(
                             1.seconds.wait()
                             bnaLocations.mapClaimBattleButton.click()
                             1.seconds.wait()
-                            bnaLocations.popupConfirmButton.click()
+                            val clicked = findAndClick(
+                                image = images[Images.PopupConfirmButton],
+                                searchRegion = bnaLocations.popupConfirmButtonRegion,
+                                clickXOffset = 200,
+                            )
+                            if (!clicked){
+                                bnaLocations.popupConfirmButton.click()
+                            }
                         }
 
                         is MissionFound.Gun -> {
                             battles++
                             detectedMission.location.click()
-                            1.seconds.wait()
+                            0.5.seconds.wait()
                             bnaLocations.mapClaimBattleButton.click()
-                            2.seconds.wait()
+                            0.5.seconds.wait()
 
                             val battleResult = battleProcess.performBattle(
                                 useTeamSelectScreen = true,

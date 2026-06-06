@@ -9,6 +9,7 @@ import io.github.lib_automata.ExitManager
 import io.github.lib_automata.dagger.ScriptScope
 import javax.inject.Inject
 import kotlin.time.Duration
+import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
 
 @ScriptScope
@@ -24,7 +25,7 @@ class BnaBattleProcess @Inject constructor(
      *
      * @param useTeamSelectScreen Whether to use the team select screen (3 teams) or the default team building screen
      * @param shouldSkip Whether to click the skip button during battle
-     * @param pollInterval How long to wait between result checks. The first check is twice this long.
+     * @param pollInterval How long to wait between result checks.
      * @param maxAttempts Max number of result-check polls before timing out
      */
     fun performBattle(
@@ -42,19 +43,21 @@ class BnaBattleProcess @Inject constructor(
         }
         else {
             // We are on the Team Building screen here.
+            // TODO: This breaks somewhat frequently due to lag. Would be good to use the find and click
+            0.5.seconds.wait()
             bnaLocations.teamScreenBattleButton.click()
         }
 
         // Check if results already visible (auto-skip case)
         pollInterval.wait()
-        pollInterval.wait()
 
         // Else Handle skipping and/or waiting for results
         if (shouldSkip) {
-            1.seconds.wait()
-            val skipButton = bnaLocations.battleSkipButtonRegion.find(images[Images.BattleSkipButton])
-            skipButton?.region?.click()
-            1.seconds.wait()
+            findAndClick(
+                images[Images.BattleSkipButton],
+                bnaLocations.battleSkipButtonRegion,
+            )
+            pollInterval.wait()
         }
 
         // Step 3 (retry): poll until the result screen appears
@@ -64,38 +67,23 @@ class BnaBattleProcess @Inject constructor(
         1.seconds.wait()
 
         // Step 4: click continue after reading result
-        var counter = 0
-        val maxChecks = 20 // At .25 second, this means it maxes out at 5 second after the victory is detected, which I think is reasonable.
-        var exitReadyCounter = 0
-        val checksBeforeSafety = 2 // Needs .5 seconds extra delay to confirm we don't both things
-        while (counter<maxChecks) {
-            exitManager.checkExitRequested()
-            counter++
-            // See if this button exists before we click as a retry mechanism without risking pressing other buttons
-            val continueButton = bnaLocations.battleContinueIconRegion.find(images[Images.BattleContinueIcon])
-            if (continueButton != null) {
-                continueButton.region.click()
-                // bnaLocations.continueClick.click()
-                exitReadyCounter = 1
-            } else if (exitReadyCounter >= checksBeforeSafety) {
-                return result
-            } else if (exitReadyCounter > 0) {
-                exitReadyCounter++
-            }
-            0.25.seconds.wait()
+        val clickResult = findAndClick(
+            images[Images.BattleContinueIcon],
+            bnaLocations.battleContinueIconRegion,
+            retryDelay = 100.milliseconds,
+            maxRetries = 50
+        )
+        if (clickResult) {
+            return result
         }
         return null
     }
 
     private fun startBattleFromTeamListPopup(): Boolean {
-        val confirmMatch = useSameSnapIn {
-            bnaLocations.mapBattleTeamConfirmRegion.find(images[Images.MapBattleTeamConfirm])
-        }
-        if (confirmMatch == null) {
-            return false
-        }
-        confirmMatch.region.center.click()
-        return true
+        return findAndClick(
+            images[Images.MapBattleTeamConfirm],
+            bnaLocations.mapBattleTeamConfirmRegion,
+        )
     }
 
     /**

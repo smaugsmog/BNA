@@ -4,6 +4,7 @@ import io.github.fate_grand_automata.scripts.IFgoAutomataApi
 import io.github.fate_grand_automata.scripts.Images
 import io.github.fate_grand_automata.scripts.bna.BnaBattleProcess
 import io.github.fate_grand_automata.scripts.bna.BnaLocations
+import io.github.fate_grand_automata.scripts.bna.findAndClick
 import io.github.lib_automata.EntryPoint
 import io.github.lib_automata.ExitManager
 import io.github.lib_automata.dagger.ScriptScope
@@ -44,12 +45,15 @@ class Metaspace @Inject constructor(
                 1.seconds.wait()
                 if (runIndex > 0) {
                     // Navigate from metaspace screen → team screen
-                    // TODO: This button gets matched while the victory screen is up if we accidentally fail the check there. Did similarity fix?
-                    val button = bnaLocations.metaspaceBattleButton.exists(images[Images.MetaSpaceBattleButton], similarity = .92)
-                    if (button) {
-                        bnaLocations.metaspaceBattleButtonClick.click()
-                        1.seconds.wait()
-                    } else {
+                    val found = findAndClick(
+                        image = images[Images.MetaSpaceBattleButton],
+                        searchRegion = bnaLocations.metaspaceBattleButton,
+                        clickXOffset = -151,
+                        clickYOffset = -10,
+                        similarity = 0.92,
+                    )
+                    0.5.seconds.wait()
+                    if (!found) {
                         // Run ended early?
                         throw ExitException(
                             ExitReason.NoBattle,
