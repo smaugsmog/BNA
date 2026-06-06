@@ -120,6 +120,11 @@ class BnaLocations @Inject constructor(
         .xFromRight()
         .yFromBottom()
 
+    // The button to filter selectable heroes. Useful for identifying the battle screen
+    val teamFilterButtonRegion = Region(-280, -100, 100, 100)
+        .xFromRight()
+        .yFromBottom()
+
     // ===== Battle Results Screen =====
 
     /** Bottom-right continue button on the victory/defeat results screen. */

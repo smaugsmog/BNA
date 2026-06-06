@@ -43,9 +43,15 @@ class BnaBattleProcess @Inject constructor(
         }
         else {
             // We are on the Team Building screen here.
-            // TODO: This breaks somewhat frequently due to lag. Would be good to use the find and click
-            0.5.seconds.wait()
-            bnaLocations.teamScreenBattleButton.click()
+            // Search for the filter button, then click up for the battle button
+            0.2.seconds.wait()
+            findAndClick(
+                images[Images.TeamFilterButton],
+                bnaLocations.teamFilterButtonRegion,
+                exitManager,
+                clickXOffset = -344,
+                clickYOffset = -377,
+            )
         }
 
         // Check if results already visible (auto-skip case)
