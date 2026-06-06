@@ -9,12 +9,14 @@ import io.github.fate_grand_automata.scripts.prefs.IGesturesPreferences
 import io.github.lib_automata.GestureService
 import io.github.lib_automata.Location
 import io.github.lib_automata.Waiter
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.suspendCancellableCoroutine
 import timber.log.Timber
 import javax.inject.Inject
 import kotlin.coroutines.resume
 import kotlin.math.*
+import kotlin.random.Random
 
 /**
  * Class to perform gestures using Android's [AccessibilityService].
@@ -138,6 +140,7 @@ class AccessibilityGestures @Inject constructor(
         Timber.d("click $location x$times")
 
         repeat(times) {
+            delay(Random.nextLong(0, 100))
             performGesture(stroke)
         }
 
