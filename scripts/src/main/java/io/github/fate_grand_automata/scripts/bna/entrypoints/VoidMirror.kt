@@ -46,11 +46,10 @@ class VoidMirror @Inject constructor(
 
         try {
             while (true) {
-                exitManager.checkExitRequested()
-                0.5.seconds.wait()
+                0.3.seconds.wait()
                 exitManager.checkExitRequested()
                 bnaLocations.voidStartBattle.click()
-                0.8.seconds.wait()
+                0.6.seconds.wait()
 
                 if (needsBuffSelection) {
                     val selectedBuff = selectBestAvailableBuff()
@@ -60,7 +59,7 @@ class VoidMirror @Inject constructor(
                             ExitState(successfulRuns, totalAttempts, failedRetries)
                         )
                     }
-                    1.seconds.wait()
+                    0.7.seconds.wait()
                 }
 
                 val result = battleProcess.performBattle()
@@ -119,7 +118,7 @@ class VoidMirror @Inject constructor(
                 if (buffMatch != null) {
                     foundBuff = true
                     buffMatch.region.click()
-                    0.3.seconds.wait()
+                    0.2.seconds.wait()
                     break
                 }
             }
