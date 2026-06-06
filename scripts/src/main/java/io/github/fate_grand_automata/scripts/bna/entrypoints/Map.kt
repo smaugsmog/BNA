@@ -4,6 +4,7 @@ import io.github.fate_grand_automata.scripts.IFgoAutomataApi
 import io.github.fate_grand_automata.scripts.Images
 import io.github.fate_grand_automata.scripts.bna.BnaBattleProcess
 import io.github.fate_grand_automata.scripts.bna.BnaLocations
+import io.github.fate_grand_automata.scripts.bna.findAndClick
 import io.github.lib_automata.EntryPoint
 import io.github.lib_automata.ExitManager
 import io.github.lib_automata.Location
@@ -44,14 +45,11 @@ class Map @Inject constructor(
         try {
             // Step 1: Collect supplies
             bnaLocations.mapSupplies.click()
-            val maxRetries = 10
-            for (i in 1..maxRetries){
-                0.5.seconds.wait()
-                val popupButton = bnaLocations.popupConfirmButtonRegion.find(images[Images.PopupConfirmButton])
-                if (popupButton != null){
-                    Location(popupButton.region.center.x + 200, popupButton.region.center.y).click()
-                }
-            }
+            findAndClick(
+                image = images[Images.PopupConfirmButton],
+                searchRegion = bnaLocations.popupConfirmButtonRegion,
+                clickXOffset = 200,
+            )
             1.seconds.wait()
 
             // Step 2: Check for active badge
