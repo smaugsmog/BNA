@@ -66,11 +66,13 @@ data class Region(val x: Int, val y: Int, val width: Int, val height: Int) : Com
      * Returns the X coordinate of the right border.
      */
     val right get() = x + width
+    val left get() = x
 
     /**
      * Returns the Y coordinate of the bottom border.
      */
     val bottom get() = y + height
+    val top get() = y
 
     /**
      * Returns the intersection between this [Region] and another [region].

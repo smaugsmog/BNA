@@ -254,7 +254,9 @@ class ScriptManager @Inject constructor(
             }
 
             is Map.ExitException -> {
-                messages.notify("Map completed: ${e.state.boxesCollected} boxes, ${e.state.battlesFought} battles")
+                val message = "Map completed: ${e.state.boxesCollected} boxes, ${e.state.battlesFought} battles.${if (e.state.offerAvailable) " You have an Offer to check" else ""}"
+                messages.notify(message)
+                messageBox.show(scriptExitedString, message)
             }
 
             is VoidMirror.ExitException -> {
