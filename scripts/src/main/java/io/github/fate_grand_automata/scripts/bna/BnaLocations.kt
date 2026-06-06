@@ -72,6 +72,10 @@ class BnaLocations @Inject constructor(
 
     val metaspaceBattleButtonClick = Location(metaspaceBattleButton.x - 120, metaspaceBattleButton.y + 40)
 
+    // y = 480 of 720
+    val metaspaceFactionRequirementRegion = Region(750, 230, 70, 50)
+        .yFromCenter()
+
     // ===== Void Mirror Screen =====
 
     /** Region where void buff selection icons appear. */
