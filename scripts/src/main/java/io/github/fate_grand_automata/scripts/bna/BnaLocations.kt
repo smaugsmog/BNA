@@ -46,13 +46,17 @@ class BnaLocations @Inject constructor(
         get() = Location(892, -65)
             .yFromBottom()
 
-    /** Confirm button on the supply collection dialog (centered). */
+    /** Confirm button on the map popup dialogs (centered).
+     * Note that if the box expands, it expands vertically and the button will be lower on the screen.
+     * Prefer matching with findAndClick
+     */
     val popupConfirmButton: Location
         get() = Location(0, 340)
             .xFromCenter()
             .yFromCenter()
+
     /** Confirm button on the supply collection dialog (centered). */
-    val popupConfirmButtonRegion = Region(-212,270, 30, 450)
+    val popupConfirmButtonRegion = Region(-230, 200, 55, 550)
         .xFromCenter()
         .yFromCenter()
 
@@ -63,8 +67,8 @@ class BnaLocations @Inject constructor(
 
     /** Bottom-right button on the metaspace screen that opens the team/battle prep screen. */
     val metaspaceBattleButton = Region(-804, -206, 62, 100)
-            .xFromRight()
-            .yFromBottom()
+        .xFromRight()
+        .yFromBottom()
 
     val metaspaceBattleButtonClick = Location(metaspaceBattleButton.x - 120, metaspaceBattleButton.y + 40)
 
@@ -74,6 +78,7 @@ class BnaLocations @Inject constructor(
     val voidBuffSelectionRegion = Region(-622, -374, 142, 630)
         .xFromCenter()
         .yFromCenter()
+
     /** Confirm button for void buff selection. */
     val voidFirstBuff = Location(0, -260)
         .xFromCenter()
@@ -85,10 +90,11 @@ class BnaLocations @Inject constructor(
         get() = Location(0, 420)
             .xFromCenter()
             .yFromCenter()
+
     /** Confirm button for void buff selection. */
     val voidBuffConfirmRegion = Region(-156, 360, 50, 140)
-            .xFromCenter()
-            .yFromCenter()
+        .xFromCenter()
+        .yFromCenter()
 
     /** Battle start button that opens buff screen or restarts the battle. */
     val voidStartBattle: Location
@@ -123,7 +129,7 @@ class BnaLocations @Inject constructor(
             .yFromBottom()
 
     /** Bottom-right continue button on the victory/defeat results screen. */
-    val battleContinueIconRegion = Region(-386,-268,82,96)
+    val battleContinueIconRegion = Region(-386, -268, 82, 96)
         .xFromRight()
         .yFromBottom()
 

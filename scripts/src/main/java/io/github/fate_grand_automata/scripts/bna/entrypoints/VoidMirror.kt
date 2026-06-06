@@ -54,7 +54,7 @@ class VoidMirror @Inject constructor(
 
                 if (needsBuffSelection) {
                     val selectedBuff = selectBestAvailableBuff()
-                    if (!selectedBuff){
+                    if (!selectedBuff) {
                         throw ExitException(
                             ExitReason.Unexpected(Exception("Battle result was null")),
                             ExitState(successfulRuns, totalAttempts, failedRetries)

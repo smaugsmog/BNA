@@ -46,11 +46,10 @@ class Metaspace @Inject constructor(
                     // Navigate from metaspace screen → team screen
                     // TODO: This button gets matched while the victory screen is up if we accidentally fail the check there. Did similarity fix?
                     val button = bnaLocations.metaspaceBattleButton.exists(images[Images.MetaSpaceBattleButton], similarity = .92)
-                    if (button == true){
+                    if (button) {
                         bnaLocations.metaspaceBattleButtonClick.click()
                         1.seconds.wait()
-                    }
-                    else {
+                    } else {
                         // Run ended early?
                         throw ExitException(
                             ExitReason.NoBattle,

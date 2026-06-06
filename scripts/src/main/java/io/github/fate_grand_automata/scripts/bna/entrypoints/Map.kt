@@ -105,6 +105,7 @@ class Map @Inject constructor(
                         1.seconds.wait()
                         bnaLocations.popupConfirmButton.click()
                     }
+
                     is MissionFound.Gun -> {
                         battles++
                         detectedMission.location.click()
@@ -117,10 +118,11 @@ class Map @Inject constructor(
                             pollInterval = 2.seconds,
                             maxAttempts = 200
                         )
-                        if (battleResult == false){
+                        if (battleResult == false) {
                             throw ExitException(ExitReason.Failure, ExitState(boxes, battles))
                         }
                     }
+
                     null -> throw ExitException(ExitReason.Completed, ExitState(boxes, battles))
 
                     // TODO: Needs to scroll

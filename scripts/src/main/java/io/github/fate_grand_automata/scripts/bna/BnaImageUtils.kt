@@ -28,7 +28,7 @@ fun IFgoAutomataApi.findAndClick(
         } else if (found) {
             return true
         }
-        if (i != maxRetries){
+        if (i != maxRetries) {
             retryDelay.wait()
         }
     }
