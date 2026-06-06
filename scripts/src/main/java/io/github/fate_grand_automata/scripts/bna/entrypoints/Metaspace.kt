@@ -48,11 +48,11 @@ class Metaspace @Inject constructor(
                     val found = findAndClick(
                         image = images[Images.MetaSpaceBattleButton],
                         searchRegion = bnaLocations.metaspaceBattleButton,
+                        exitManager,
                         clickXOffset = -151,
                         clickYOffset = -10,
                         similarity = 0.92,
                     )
-                    0.5.seconds.wait()
                     if (!found) {
                         // Run ended early?
                         throw ExitException(
@@ -60,6 +60,7 @@ class Metaspace @Inject constructor(
                             ExitState(wins + losses, wins, losses)
                         )
                     }
+                    0.5.seconds.wait()
                 }
 
                 // 1a TODO: team modification (unsupported — add team edit logic here?)

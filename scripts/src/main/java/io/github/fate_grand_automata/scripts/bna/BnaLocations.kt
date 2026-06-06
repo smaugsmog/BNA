@@ -18,7 +18,7 @@ class BnaLocations @Inject constructor(
     // ===== Map Screen =====
 
     /** Region where the map-active badge appears (sticky to top-left). */
-    val mapBadgeSearchRegion = Region(787, 0, 140, 116)
+    val mapBadgeSearchRegion = Region(780, 0, 155, 125)
 
     /** Derives the map-nav-button click from a matched badge. */
     val mapNavClickFromBadge = Location(mapBadgeSearchRegion.x - 107, 34)
@@ -56,7 +56,7 @@ class BnaLocations @Inject constructor(
             .yFromCenter()
 
     /** Confirm button on the supply collection dialog (centered). */
-    val popupConfirmButtonRegion = Region(-230, 200, 55, 550)
+    val popupConfirmButtonRegion = Region(-230, 0, 55, 750)
         .xFromCenter()
         .yFromCenter()
 

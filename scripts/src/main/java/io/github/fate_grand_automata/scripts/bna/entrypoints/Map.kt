@@ -53,6 +53,7 @@ class Map @Inject constructor(
             findAndClick(
                 image = images[Images.PopupConfirmButton],
                 searchRegion = bnaLocations.popupConfirmButtonRegion,
+                exitManager,
                 clickXOffset = 200,
             )
             0.5.seconds.wait()
@@ -62,9 +63,10 @@ class Map @Inject constructor(
                 val badgeFound = findAndClick(
                     image = images[Images.MapActiveBadge],
                     searchRegion = bnaLocations.mapBadgeSearchRegion,
+                    exitManager,
                     clickXOffset = -177,
-                    clickYOffset = -24,
-                    maxRetries = 5
+//                    similarity = 92.0,
+                    confirmsRequired = 0,
                 )
 
                 if (!badgeFound) {
@@ -137,7 +139,6 @@ class Map @Inject constructor(
                             if (offer != null) {
                                 offerAvailable = true
                             }
-
                         }
 
                         null
@@ -155,6 +156,7 @@ class Map @Inject constructor(
                             val clicked = findAndClick(
                                 image = images[Images.PopupConfirmButton],
                                 searchRegion = bnaLocations.popupConfirmButtonRegion,
+                                exitManager,
                                 clickXOffset = 200,
                             )
                             if (!clicked){

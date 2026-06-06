@@ -56,6 +56,7 @@ class BnaBattleProcess @Inject constructor(
             findAndClick(
                 images[Images.BattleSkipButton],
                 bnaLocations.battleSkipButtonRegion,
+                exitManager,
             )
             pollInterval.wait()
         }
@@ -70,6 +71,7 @@ class BnaBattleProcess @Inject constructor(
         val clickResult = findAndClick(
             images[Images.BattleContinueIcon],
             bnaLocations.battleContinueIconRegion,
+            exitManager,
             retryDelay = 100.milliseconds,
             maxRetries = 50
         )
@@ -83,6 +85,7 @@ class BnaBattleProcess @Inject constructor(
         return findAndClick(
             images[Images.MapBattleTeamConfirm],
             bnaLocations.mapBattleTeamConfirmRegion,
+            exitManager,
         )
     }
 
