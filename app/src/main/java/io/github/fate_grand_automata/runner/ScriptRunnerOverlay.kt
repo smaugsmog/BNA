@@ -64,9 +64,9 @@ class ScriptRunnerOverlay @Inject constructor(
             )
         }.view
 
-        // By default put the button on bottom-left corner
+        // By default put the button on left center to avoid detection areas
         val m = display.metrics
-        scriptCtrlBtnLayoutParams.y = maxOf(m.widthPixels, m.heightPixels)
+        scriptCtrlBtnLayoutParams.y = maxOf(m.widthPixels, m.heightPixels) / 2
     }
 
     private fun setPlayBtnLocation(x: Int, y: Int) {
