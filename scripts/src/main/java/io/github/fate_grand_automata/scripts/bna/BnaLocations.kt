@@ -35,7 +35,7 @@ class BnaLocations @Inject constructor(
             .xFromRight()
             .yFromCenter()
 
-    val mapClaimBattleButtonRegion = Region(-400, 200, 200, 200)
+    val mapClaimBattleButtonRegion = Region(-800, 250, 400, 600)
         .xFromRight()
         .yFromCenter()
 
@@ -129,7 +129,7 @@ class BnaLocations @Inject constructor(
         .yFromBottom()
 
     // The button to filter selectable heroes. Useful for identifying the battle screen
-    val teamFilterButtonRegion = Region(-280, -100, 100, 100)
+    val teamFilterButtonRegion = Region(-320, -100, 100, 100)
         .xFromRight()
         .yFromBottom()
 

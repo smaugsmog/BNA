@@ -57,7 +57,6 @@ class Map @Inject constructor(
                 exitManager,
                 clickXOffset = 200,
                 maxRetries = 50,
-                similarity = 75.0,
             )
             0.5.seconds.wait()
 
