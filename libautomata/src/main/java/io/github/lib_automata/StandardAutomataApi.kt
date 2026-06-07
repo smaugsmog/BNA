@@ -79,5 +79,7 @@ class StandardAutomataApi @Inject constructor(
         similarity = similarity,
         requireAll = requireAll
     )
+
+    override fun reportImageMatchFailure() = imageMatcher.recalibrate()
 }
 

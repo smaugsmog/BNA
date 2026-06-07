@@ -93,36 +93,83 @@ class DroidCvPattern(
         return null  
     }
 
-    override fun findMatches(template: Pattern, similarity: Double) = sequence {
-        val result = match(template)
+    override fun findMatches(template: Pattern, similarity: Double, scales: List<Double>) = sequence {
+        if (scales.size == 1 && scales[0] == 1.0) {
+            val result = match(template)
 
-        result?.use {
-            while (true) {
-                val minMaxLocResult = Core.minMaxLoc(it)
-                val score = minMaxLocResult.maxVal
+            result?.use {
+                while (true) {
+                    val minMaxLocResult = Core.minMaxLoc(it)
+                    val score = minMaxLocResult.maxVal
 
-                if (score >= similarity) {
-                    val loc = minMaxLocResult.maxLoc
-                    val region = Region(
-                        loc.x.roundToInt(),
-                        loc.y.roundToInt(),
-                        template.width,
-                        template.height
-                    )
+                    if (score >= similarity) {
+                        val loc = minMaxLocResult.maxLoc
+                        val region = Region(
+                            loc.x.roundToInt(),
+                            loc.y.roundToInt(),
+                            template.width,
+                            template.height
+                        )
 
-                    val match = Match(region, score)
+                        val match = Match(region, score)
 
-                    Timber.d("Matched $template with a score of ${match.score}")
-                    yield(match)
+                        Timber.d("Matched $template with a score of ${match.score}")
+                        yield(match)
 
-                    // Flood fill eliminates the problem of nearby points to a high similarity point also having high similarity
-                    result.floodFill(loc, 0.3, 0.0)
-                } else {
-                    Timber.v("Stopped matching $template at score ($score) < similarity ($similarity)")
-                    break
+                        result.floodFill(loc, 0.3, 0.0)
+                    } else {
+                        Timber.v("Stopped matching $template at score ($score) < similarity ($similarity)")
+                        break
+                    }
+                }
+            }
+            return@sequence
+        }
+
+        data class Candidate(val region: Region, val score: Double, val scale: Double)
+        val candidates = mutableListOf<Candidate>()
+
+        for (scale in scales) {
+            val sw = (template.width * scale).roundToInt()
+            val sh = (template.height * scale).roundToInt()
+            if (sw <= 0 || sh <= 0 || sw > width || sh > height) continue
+
+            template.resize(Size(sw, sh)).use { scaledTemplate ->
+                val result = match(scaledTemplate)
+
+                result?.use {
+                    while (true) {
+                        val mm = Core.minMaxLoc(it)
+                        val score = mm.maxVal
+
+                        if (score >= similarity) {
+                            val loc = mm.maxLoc
+                            candidates.add(
+                                Candidate(
+                                    Region(loc.x.roundToInt(), loc.y.roundToInt(), sw, sh),
+                                    score,
+                                    scale
+                                )
+                            )
+                            it.floodFill(loc, 0.3, 0.0)
+                        } else break
+                    }
                 }
             }
         }
+
+        candidates.sortedByDescending { it.score }
+            .fold(mutableListOf<Candidate>()) { acc, cand ->
+                val isDuplicate = acc.any { existing ->
+                    val dx = cand.region.center.x - existing.region.center.x
+                    val dy = cand.region.center.y - existing.region.center.y
+                    val dist = kotlin.math.sqrt((dx * dx + dy * dy).toDouble())
+                    dist < maxOf(cand.region.width, cand.region.height) * 0.5
+                }
+                if (!isDuplicate) acc.add(cand)
+                acc
+            }
+            .forEach { yield(Match(it.region, it.score, it.scale)) }
     }
 
     override val width get() = mat.width()

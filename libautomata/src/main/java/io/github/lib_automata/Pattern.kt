@@ -30,10 +30,11 @@ interface Pattern : AutoCloseable {
      *
      * @param template the image to match with
      * @param similarity the minimum similarity
+     * @param scales the list of scale factors to try (default [1.0])
      *
      * @return a list of [Match] objects
      */
-    fun findMatches(template: Pattern, similarity: Double): Sequence<Match>
+    fun findMatches(template: Pattern, similarity: Double, scales: List<Double> = listOf(1.0)): Sequence<Match>
 
     /**
      * Crops the image to be within the bounds of the given [region].

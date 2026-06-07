@@ -106,7 +106,9 @@ class BnaBattleProcess @Inject constructor(
             if (result != null) return result
             pollInterval.wait()
         }
-
+        reportImageMatchFailure()
+        val result = checkForResult()
+        if (result != null) return result
         return null
     }
 

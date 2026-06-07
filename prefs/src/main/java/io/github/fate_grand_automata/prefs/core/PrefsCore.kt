@@ -64,6 +64,10 @@ class PrefsCore @Inject constructor(
     val stageCounterSimilarity = maker.int("stage_counter_similarity", 85)
     val stageCounterNew = maker.bool("stage_counter_new")
 
+    val matchingScaleCalibrated = maker.bool("matching_scale_calibrated", false)
+    val matchingScaleMin = maker.int("matching_scale_min", 100)
+    val matchingScaleMax = maker.int("matching_scale_max", 100)
+
     val skillDelay = maker.int("skill_delay", 500)
     val waitMultiplier = maker.int("wait_multiplier", 100)
     val waitBeforeTurn = maker.int("wait_before_turn", 500)

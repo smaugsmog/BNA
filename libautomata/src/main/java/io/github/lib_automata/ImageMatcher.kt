@@ -52,6 +52,11 @@ interface ImageMatcher {
     fun isBlack(region: Region): Boolean
 
     /**
+     * Triggers scale recalibration on the next image search.
+     */
+    fun recalibrate()
+
+    /**
      * Checks if all images in the map exist in their respective regions.
      *
      * @param items a [Map] of [Region] and [Pattern] pairs
@@ -75,6 +80,7 @@ class RealImageMatcher @Inject constructor(
     private val highlight: Highlighter,
     private val transform: Transformer
 ) : ImageMatcher {
+    private val scaleCalibrator = ScaleCalibrator(platformImpl.prefs)
     /**
      * Checks if the [Region] contains the provided image.
      *
@@ -145,28 +151,37 @@ class RealImageMatcher @Inject constructor(
     }
 
     override fun findAll(region: Region, pattern: Pattern, similarity: Double?): Sequence<Match> {
+        val actualSimilarity = similarity ?: platformImpl.prefs.minSimilarity
+        val scales = scaleCalibrator.getScales()
+
         val matches = screenshotManager.getScreenshot()
             .crop(transform.toImage(region))
-            .findMatches(
-                pattern,
-                similarity ?: platformImpl.prefs.minSimilarity
-            )
+            .findMatches(pattern, actualSimilarity, scales)
             .map {
                 exitManager.checkExitRequested()
 
                 // convert the relative position in the region to the absolute position on the screen
                 val matchedRegion = transform.fromImage(it.region) + region.location
 
-                Match(matchedRegion, it.score)
+                Match(matchedRegion, it.score, it.scale)
             }
             .toList() // Convert to list to avoid sequence consumption issues
-        
+
+        if (scaleCalibrator.isCalibrating && matches.isNotEmpty()) {
+            val bestMatch = matches.maxByOrNull { it.score }!!
+            scaleCalibrator.calibrate(bestMatch.scale)
+        }
+
         highlight(
             region,
             color = if (matches.isNotEmpty()) HighlightColor.Success else HighlightColor.Error
         )
         
         return matches.asSequence()
+    }
+
+    override fun recalibrate() {
+        scaleCalibrator.recalibrate()
     }
 
     override fun isWhite(region: Region) =

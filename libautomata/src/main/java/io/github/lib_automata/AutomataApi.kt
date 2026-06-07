@@ -67,4 +67,10 @@ interface AutomataApi {
         similarity: Double? = null,
         requireAll: Boolean = false
     ): Boolean
+
+    /**
+     * Signals that an image search sequence has failed after exhausting all retries.
+     * Triggers scale re-calibration on the next image search.
+     */
+    fun reportImageMatchFailure()
 }

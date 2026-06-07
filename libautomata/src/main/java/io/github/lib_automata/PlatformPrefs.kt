@@ -11,4 +11,19 @@ interface PlatformPrefs {
     val waitMultiplier: Double
 
     val swipeMultiplier: Double
+
+    /**
+     * Whether the scale calibrator has locked onto a scale range.
+     */
+    var matchingScaleCalibrated: Boolean
+
+    /**
+     * The minimum scale factor to try, stored as percentage (50-150).
+     */
+    var matchingScaleMin: Int
+
+    /**
+     * The maximum scale factor to try, stored as percentage (50-150).
+     */
+    var matchingScaleMax: Int
 }
