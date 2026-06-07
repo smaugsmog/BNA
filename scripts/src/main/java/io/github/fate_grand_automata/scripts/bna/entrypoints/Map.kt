@@ -50,11 +50,14 @@ class Map @Inject constructor(
         try {
             // Step 1: Collect supplies
             bnaLocations.mapSupplies.click()
+
             findAndClick(
                 image = images[Images.PopupConfirmButton],
                 searchRegion = bnaLocations.popupConfirmButtonRegion,
                 exitManager,
                 clickXOffset = 200,
+                maxRetries = 50,
+                similarity = 75.0,
             )
             0.5.seconds.wait()
 
@@ -104,10 +107,12 @@ class Map @Inject constructor(
             )
 
             for ((scrollStart, scrollEnd) in scrolls) {
-                scrollStart?.let { scrollEnd?.let {
-                    swipe(scrollStart, scrollEnd)
-                    0.1.seconds.wait()
-                } }
+                scrollStart?.let {
+                    scrollEnd?.let {
+                        swipe(scrollStart, scrollEnd)
+                        0.1.seconds.wait()
+                    }
+                }
 
                 // Look for the mission icons
                 while (true) {
@@ -132,7 +137,7 @@ class Map @Inject constructor(
                             return@useSameSnapIn MissionFound.Gun(gun.region.center)
                         }
 
-                        if (!offerAvailable){
+                        if (!offerAvailable) {
                             // This won't buy anything, so we are just logging if the user needs to check.
                             // So we only need it once, and we can check last.
                             val offer = area.find(images[Images.MapMissionOffer])
@@ -150,16 +155,20 @@ class Map @Inject constructor(
                         is MissionFound.Gift -> {
                             boxes++
                             detectedMission.location.click()
-                            1.seconds.wait()
-                            bnaLocations.mapClaimBattleButton.click()
-                            1.seconds.wait()
+                            0.5.seconds.wait()
+                            findAndClick(
+                                images[Images.MapGiftConfirmButton],
+                                bnaLocations.mapClaimBattleButtonRegion,
+                                exitManager,
+                            )
+                            0.5.seconds.wait()
                             val clicked = findAndClick(
                                 image = images[Images.PopupConfirmButton],
                                 searchRegion = bnaLocations.popupConfirmButtonRegion,
                                 exitManager,
                                 clickXOffset = 200,
                             )
-                            if (!clicked){
+                            if (!clicked) {
                                 bnaLocations.popupConfirmButton.click()
                             }
                         }
@@ -168,7 +177,12 @@ class Map @Inject constructor(
                             battles++
                             detectedMission.location.click()
                             0.5.seconds.wait()
-                            bnaLocations.mapClaimBattleButton.click()
+                            // Because these are the same except color, this should work
+                            findAndClick(
+                                images[Images.MapGiftConfirmButton],
+                                bnaLocations.mapClaimBattleButtonRegion,
+                                exitManager,
+                            )
                             0.5.seconds.wait()
 
                             val battleResult = battleProcess.performBattle(

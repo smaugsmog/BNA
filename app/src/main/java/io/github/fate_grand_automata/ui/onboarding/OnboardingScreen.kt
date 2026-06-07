@@ -142,7 +142,6 @@ fun BottomSection(size: Int, index: Int, enabled: Boolean, onButtonClick: () -> 
         ) {
             Icon(
                 Icons.AutoMirrored.Outlined.KeyboardArrowRight,
-                tint = Color.White,
                 contentDescription = "Localized description"
             )
         }

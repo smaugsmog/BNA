@@ -31,9 +31,13 @@ class BnaLocations @Inject constructor(
 
     /** Opens the map's team selector (bottom-right locked). */
     val mapClaimBattleButton: Location
-        get() = Location(-514, -147)
+        get() = Location(-514, 285)
             .xFromRight()
-            .yFromBottom()
+            .yFromCenter()
+
+    val mapClaimBattleButtonRegion = Region(-400, 200, 200, 200)
+        .xFromRight()
+        .yFromCenter()
 
     /** Region to image-match the MapBattleTeamConfirm button (centered). */
     val mapBattleTeamConfirmRegion: Region
@@ -56,7 +60,7 @@ class BnaLocations @Inject constructor(
             .yFromCenter()
 
     /** Confirm button on the supply collection dialog (centered). */
-    val popupConfirmButtonRegion = Region(-230, 0, 55, 750)
+    val popupConfirmButtonRegion = Region(-260, 0, 190, 750)
         .xFromCenter()
         .yFromCenter()
 

@@ -104,6 +104,7 @@ enum class Images(val path: String) {
     BattleContinueIcon("BN/battle_continue_button.png"),
     BattleSkipButton("BN/battle_skip.png"),
     PopupConfirmButton("BN/confirm_button.png"),
+    MapGiftConfirmButton("BN/gift_confirm_button.png"),
 
     TeamFilterButton("BN/teamFilterButton.png"),
     Tamer("BN/tamer.png"),

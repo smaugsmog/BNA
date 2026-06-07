@@ -19,7 +19,8 @@ This is to automate the tedious tapping with no brainpower and doesn't help with
   - Start from the mission screen. Can go back 1 map if you have a locked screen.
   - Collects supplies, then goes to the active map and looks for Gifts and Guns.
   - Automatically collects gifts and battles guns
-  - Ignores purchase offers. Cannot scroll currently, so it will miss items
+  - If offers are found, the notification will include that as part of the message.
+  - While it will attempt to scroll around, it may miss missions
 
 ## Potential issues and fixes
 
