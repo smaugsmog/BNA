@@ -13,17 +13,13 @@ interface PlatformPrefs {
     val swipeMultiplier: Double
 
     /**
-     * Whether the scale calibrator has locked onto a scale range.
+     * Set of scale factors that have successfully matched, stored as percentages (50-150).
+     * Empty means uncalibrated - will use wide range.
      */
-    var matchingScaleCalibrated: Boolean
+    var matchingScales: MutableSet<Int>
 
     /**
-     * The minimum scale factor to try, stored as percentage (50-150).
+     * Whether the next search should test wide range to discover new working scales.
      */
-    var matchingScaleMin: Int
-
-    /**
-     * The maximum scale factor to try, stored as percentage (50-150).
-     */
-    var matchingScaleMax: Int
+    var pendingRecalibration: Boolean
 }

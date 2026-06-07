@@ -14,35 +14,36 @@ class ScaleCalibrator(private val prefs: PlatformPrefs) {
     }.toList()
 
     fun getScales(): List<Double> {
-        if (!prefs.matchingScaleCalibrated) return wideScales
+        val stored = prefs.matchingScales
+        if (stored.isEmpty()) return wideScales
 
-        val min = prefs.matchingScaleMin / 100.0
-        val max = prefs.matchingScaleMax / 100.0
-
-        if (min == max) return listOf(min)
-
-        return generateSequence(min) {
-            (it + WIDE_STEP).takeIf { it <= max + 0.001 }
-        }.toList()
+        return stored.map { it / 100.0 }.sorted()
     }
 
-    fun calibrate(bestScale: Double) {
-        val pct = (bestScale * 100).roundToInt().coerceIn(1, 200)
-
-        if (!prefs.matchingScaleCalibrated) {
-            prefs.matchingScaleCalibrated = true
-            prefs.matchingScaleMin = pct
-            prefs.matchingScaleMax = pct
-        } else {
-            if (pct < prefs.matchingScaleMin) prefs.matchingScaleMin = pct
-            if (pct > prefs.matchingScaleMax) prefs.matchingScaleMax = pct
-        }
+    fun addWorkingScale(scale: Double) {
+        val pct = (scale * 100).roundToInt().coerceIn(50, 150)
+        prefs.matchingScales.add(pct)
     }
 
     fun recalibrate() {
-        prefs.matchingScaleCalibrated = false
+        prefs.pendingRecalibration = true
+    }
+
+    fun finalizeRecalibration(workingScales: List<Double>) {
+        val existing = prefs.matchingScales.map { it / 100.0 }
+        val newScales = workingScales.filter { scale ->
+            existing.none { it == scale }
+        }
+        if (newScales.isNotEmpty()) {
+            val bestNew = newScales.maxByOrNull { it }!!
+            addWorkingScale(bestNew)
+        }
+        prefs.pendingRecalibration = false
     }
 
     val isCalibrating: Boolean
-        get() = !prefs.matchingScaleCalibrated
+        get() = prefs.matchingScales.isEmpty()
+
+    val isRecalibrating: Boolean
+        get() = prefs.pendingRecalibration
 }

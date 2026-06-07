@@ -153,6 +153,7 @@ class RealImageMatcher @Inject constructor(
     override fun findAll(region: Region, pattern: Pattern, similarity: Double?): Sequence<Match> {
         val actualSimilarity = similarity ?: platformImpl.prefs.minSimilarity
         val scales = scaleCalibrator.getScales()
+        val isRecalibrating = scaleCalibrator.isRecalibrating
 
         val matches = screenshotManager.getScreenshot()
             .crop(transform.toImage(region))
@@ -167,9 +168,12 @@ class RealImageMatcher @Inject constructor(
             }
             .toList() // Convert to list to avoid sequence consumption issues
 
-        if (scaleCalibrator.isCalibrating && matches.isNotEmpty()) {
-            val bestMatch = matches.maxByOrNull { it.score }!!
-            scaleCalibrator.calibrate(bestMatch.scale)
+        if (isRecalibrating && matches.isNotEmpty()) {
+            val workingScales = matches.map { it.scale }.distinct()
+            scaleCalibrator.finalizeRecalibration(workingScales)
+        } else if (scaleCalibrator.isCalibrating && matches.isNotEmpty()) {
+            val bestScale = matches.maxByOrNull { it.score }!!.scale
+            scaleCalibrator.addWorkingScale(bestScale)
         }
 
         highlight(

@@ -195,11 +195,9 @@ class PreferencesImpl @Inject constructor(
         override val swipeMultiplier by prefs.swipeMultiplier
             .map { it / 100.0 }
 
-        override var matchingScaleCalibrated by prefs.matchingScaleCalibrated
+        override var matchingScales by prefs.matchingScales
 
-        override var matchingScaleMin by prefs.matchingScaleMin
-
-        override var matchingScaleMax by prefs.matchingScaleMax
+        override var pendingRecalibration by prefs.pendingRecalibration
     }
 
     override val gestures = object :
