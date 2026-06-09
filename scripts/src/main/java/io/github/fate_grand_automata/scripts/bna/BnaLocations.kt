@@ -148,6 +148,6 @@ class BnaLocations @Inject constructor(
 
     /** Region where the small colored title bar that show VICTORY or DEFEAT is. Yellow on victory and grey on defeat, so color comparisons are required. */
     val victoryDefeatRegion: Region
-        get() = Region(-100, 200, 100, 100)
+        get() = Region(-88, 216, 88, 88)
             .xFromRight()
 }
