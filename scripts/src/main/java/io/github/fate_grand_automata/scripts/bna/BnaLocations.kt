@@ -70,7 +70,7 @@ class BnaLocations @Inject constructor(
     // ===== Metaspace Screen =====
 
     /** Bottom-right button on the metaspace screen that opens the team/battle prep screen. */
-    val metaspaceBattleButton = Region(-804, -206, 62, 100)
+    val metaspaceBattleButton = Region(-830, -250, 100, 180)
         .xFromRight()
         .yFromBottom()
 
@@ -129,7 +129,7 @@ class BnaLocations @Inject constructor(
         .yFromBottom()
 
     // The button to filter selectable heroes. Useful for identifying the battle screen
-    val teamFilterButtonRegion = Region(-320, -100, 100, 100)
+    val teamFilterButtonRegion = Region(-330, -110, 120, 120)
         .xFromRight()
         .yFromBottom()
 
@@ -142,12 +142,12 @@ class BnaLocations @Inject constructor(
             .yFromBottom()
 
     /** Bottom-right continue button on the victory/defeat results screen. */
-    val battleContinueIconRegion = Region(-386, -268, 82, 96)
+    val battleContinueIconRegion = Region(-420, -300, 120, 160)
         .xFromRight()
         .yFromBottom()
 
     /** Region where the small colored title bar that show VICTORY or DEFEAT is. Yellow on victory and grey on defeat, so color comparisons are required. */
     val victoryDefeatRegion: Region
-        get() = Region(-88, 216, 88, 88)
+        get() = Region(-100, 200, 100, 100)
             .xFromRight()
 }
