@@ -68,6 +68,7 @@ class Map @Inject constructor(
                     exitManager,
                     clickXOffset = -177,
 //                    similarity = 92.0,
+                    maxRetries = 20,
                     confirmsRequired = 0,
                 )
 

@@ -18,7 +18,7 @@ class BnaLocations @Inject constructor(
     // ===== Map Screen =====
 
     /** Region where the map-active badge appears (sticky to top-left). */
-    val mapBadgeSearchRegion = Region(780, 0, 155, 125)
+    val mapBadgeSearchRegion = Region(750, 0, 200, 125)
 
     /** Derives the map-nav-button click from a matched badge. */
     val mapNavClickFromBadge = Location(mapBadgeSearchRegion.x - 107, 34)
@@ -41,9 +41,9 @@ class BnaLocations @Inject constructor(
 
     /** Region to image-match the MapBattleTeamConfirm button (centered). */
     val mapBattleTeamConfirmRegion: Region
-        get() = Region(473, -949, 101, 256)
+        get() = Region(450, -350, 150, 400)
             .xFromCenter()
-            .yFromBottom()
+            .yFromCenter()
 
     /** Supplies display on the map screen (bottom-left locked). */
     val mapSupplies: Location
@@ -65,7 +65,7 @@ class BnaLocations @Inject constructor(
         .yFromCenter()
 
     /** Region to search for the area-locked icon, centered within mapSearchArea. */
-    val areaLockedIconRegion = Region(mapSearchArea.center.x - 70, mapSearchArea.center.y - 70, 140, 140)
+    val areaLockedIconRegion = Region(mapSearchArea.center.x - 200, mapSearchArea.center.y - 100, 400, 400)
 
     // ===== Metaspace Screen =====
 
