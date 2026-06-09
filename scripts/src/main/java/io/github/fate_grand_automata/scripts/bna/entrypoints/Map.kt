@@ -146,7 +146,7 @@ class Map @Inject constructor(
                             }
                         }
 
-                        null
+                        return@useSameSnapIn null
                     }
 
                     exitManager.checkExitRequested()
@@ -198,7 +198,7 @@ class Map @Inject constructor(
                         null -> break
                     }
 
-                    3.seconds.wait()
+                    1.seconds.wait()
                 }
             }
 
