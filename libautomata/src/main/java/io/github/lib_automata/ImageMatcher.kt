@@ -52,11 +52,6 @@ interface ImageMatcher {
     fun isBlack(region: Region): Boolean
 
     /**
-     * Triggers scale recalibration on the next image search.
-     */
-    fun recalibrate()
-
-    /**
      * Checks if all images in the map exist in their respective regions.
      *
      * @param items a [Map] of [Region] and [Pattern] pairs
@@ -80,7 +75,6 @@ class RealImageMatcher @Inject constructor(
     private val highlight: Highlighter,
     private val transform: Transformer
 ) : ImageMatcher {
-    private val scaleCalibrator = ScaleCalibrator(platformImpl.prefs)
     /**
      * Checks if the [Region] contains the provided image.
      *
@@ -152,8 +146,7 @@ class RealImageMatcher @Inject constructor(
 
     override fun findAll(region: Region, pattern: Pattern, similarity: Double?): Sequence<Match> {
         val actualSimilarity = similarity ?: platformImpl.prefs.minSimilarity
-        val scales = scaleCalibrator.getScales()
-        val isRecalibrating = scaleCalibrator.isRecalibrating
+        val scales = getScales()
 
         val matches = screenshotManager.getScreenshot()
             .crop(transform.toImage(region))
@@ -168,14 +161,6 @@ class RealImageMatcher @Inject constructor(
             }
             .toList() // Convert to list to avoid sequence consumption issues
 
-        if (isRecalibrating && matches.isNotEmpty()) {
-            val workingScales = matches.map { it.scale }.distinct()
-            scaleCalibrator.finalizeRecalibration(workingScales)
-        } else if (scaleCalibrator.isCalibrating && matches.isNotEmpty()) {
-            val bestScale = matches.maxByOrNull { it.score }!!.scale
-            scaleCalibrator.addWorkingScale(bestScale)
-        }
-
         highlight(
             region,
             color = if (matches.isNotEmpty()) HighlightColor.Success else HighlightColor.Error
@@ -184,8 +169,12 @@ class RealImageMatcher @Inject constructor(
         return matches.asSequence()
     }
 
-    override fun recalibrate() {
-        scaleCalibrator.recalibrate()
+    private fun getScales(): List<Double> {
+        val min = platformImpl.prefs.matchingScaleMin
+        val max = platformImpl.prefs.matchingScaleMax
+        return generateSequence(min) {
+            (it + 5).takeIf { it <= max }
+        }.map { it / 100.0 }.toList()
     }
 
     override fun isWhite(region: Region) =

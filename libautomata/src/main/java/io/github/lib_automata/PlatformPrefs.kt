@@ -13,13 +13,12 @@ interface PlatformPrefs {
     val swipeMultiplier: Double
 
     /**
-     * Set of scale factors that have successfully matched, stored as percentages (50-150).
-     * Empty means uncalibrated - will use wide range.
+     * Minimum scale factor for template matching, stored as percentage (50-150).
      */
-    var matchingScales: MutableSet<Int>
+    var matchingScaleMin: Int
 
     /**
-     * Whether the next search should test wide range to discover new working scales.
+     * Maximum scale factor for template matching, stored as percentage (50-150).
      */
-    var pendingRecalibration: Boolean
+    var matchingScaleMax: Int
 }

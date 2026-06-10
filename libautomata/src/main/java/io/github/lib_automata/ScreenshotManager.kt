@@ -21,9 +21,15 @@ class ScreenshotManager @Inject constructor(
      * Takes a screenshot, crops it to the game area and then scales it to the image scale so
      * it can be used for image comparisons.
      */
-    private fun getScaledScreenshot(): Pattern =
-        screenshotService.takeScreenshot()
-            .crop(gameAreaManager.gameArea * (scale.screenToImage ?: 1.0))
+    private fun getScaledScreenshot(): Pattern {
+        try {
+            return screenshotService.takeScreenshot()
+                .crop(gameAreaManager.gameArea * (scale.screenToImage ?: 1.0))
+        } catch (e: Exception) {
+            println("ERROR: Screenshot failed: ${e.message}")
+            throw e
+        }
+    }
 
     /**
      * Takes a screenshot and sets [usePreviousSnap] to `true`. All following [getScreenshot]

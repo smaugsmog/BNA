@@ -47,9 +47,7 @@ fun IFgoAutomataApi.findAndClick(
         if (i != maxRetries) {
             retryDelay.wait()
         }
-        if (i == maxRetries - confirmsRequired - 1){
-            reportImageMatchFailure()
-        }
+
     }
     return false
 }

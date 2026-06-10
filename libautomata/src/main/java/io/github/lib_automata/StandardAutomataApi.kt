@@ -80,6 +80,6 @@ class StandardAutomataApi @Inject constructor(
         requireAll = requireAll
     )
 
-    override fun reportImageMatchFailure() = imageMatcher.recalibrate()
+
 }
 

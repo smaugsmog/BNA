@@ -156,6 +156,27 @@ class FineTuneSettingsViewModel @Inject constructor(
                     hint = "This multiples to every wait/delay. So, you can make the overall script slower/faster by using this."
                 )
             )
+        ),
+        FineTuneGroup(
+            name = R.string.p_fine_tune_scale,
+            items = listOf(
+                FineTuneItem(
+                    pref = prefs.matchingScaleMin,
+                    name = R.string.p_fine_tune_scale_min,
+                    icon = icon(R.drawable.ic_image_search),
+                    valueRange = 50..150,
+                    valueRepresentation = { "$it%" },
+                    hint = "Minimum template scale factor. Templates will be tested from this percentage up to max in 5% steps. Only change if the game renders at a non-standard UI scale."
+                ),
+                FineTuneItem(
+                    pref = prefs.matchingScaleMax,
+                    name = R.string.p_fine_tune_scale_max,
+                    icon = icon(R.drawable.ic_image_search),
+                    valueRange = 50..150,
+                    valueRepresentation = { "$it%" },
+                    hint = "Maximum template scale factor. Templates will be tested from min up to this percentage in 5% steps. Only change if the game renders at a non-standard UI scale."
+                )
+            )
         )
     )
 
