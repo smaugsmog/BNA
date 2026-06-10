@@ -2,9 +2,6 @@ package io.github.fate_grand_automata.scripts.bna
 
 import io.github.fate_grand_automata.scripts.IFgoAutomataApi
 import io.github.fate_grand_automata.scripts.Images
-import io.github.fate_grand_automata.scripts.bna.entrypoints.Map.ExitException
-import io.github.fate_grand_automata.scripts.bna.entrypoints.Map.ExitReason
-import io.github.fate_grand_automata.scripts.bna.entrypoints.Map.ExitState
 import io.github.lib_automata.ExitManager
 import io.github.lib_automata.dagger.ScriptScope
 import javax.inject.Inject

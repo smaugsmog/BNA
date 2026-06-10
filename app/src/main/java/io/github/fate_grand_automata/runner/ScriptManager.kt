@@ -22,10 +22,10 @@ import io.github.fate_grand_automata.scripts.entrypoints.AutoGiftBox
 import io.github.fate_grand_automata.scripts.entrypoints.AutoLottery
 import io.github.fate_grand_automata.scripts.entrypoints.AutoServantLevel
 import io.github.fate_grand_automata.scripts.entrypoints.SupportImageMaker
+import io.github.fate_grand_automata.scripts.bna.MetaspaceLogic
+import io.github.fate_grand_automata.scripts.bna.MapLogic
+import io.github.fate_grand_automata.scripts.bna.VoidMirrorLogic
 import io.github.fate_grand_automata.scripts.bna.entrypoints.Dailies
-import io.github.fate_grand_automata.scripts.bna.entrypoints.Metaspace
-import io.github.fate_grand_automata.scripts.bna.entrypoints.Map
-import io.github.fate_grand_automata.scripts.bna.entrypoints.VoidMirror
 import io.github.fate_grand_automata.ui.launcher.BnaScript
 import io.github.fate_grand_automata.ui.launcher.BnaScriptLauncher
 import io.github.fate_grand_automata.scripts.enums.GameServer
@@ -240,9 +240,9 @@ class ScriptManager @Inject constructor(
                 messageBox.show(scriptExitedString, msg)
             }
 
-            is Metaspace.ExitException -> {
+            is MetaspaceLogic.ExitException -> {
                 when (e.reason) {
-                    is Metaspace.ExitReason.InvalidTeam -> {
+                    is MetaspaceLogic.ExitReason.InvalidTeam -> {
                         val msg = "Your team appears invalid for this battle. Please update your team and try again."
                         messages.notify(msg)
                         messageBox.show(scriptExitedString, msg)
@@ -253,23 +253,23 @@ class ScriptManager @Inject constructor(
                 }
             }
 
-            is Map.ExitException -> {
-                val isCompleted = e.reason == Map.ExitReason.Completed
+            is MapLogic.ExitException -> {
+                val isCompleted = e.reason == MapLogic.ExitReason.Completed
                 val message = "Map ${if (isCompleted) "Complete" else "Failed!"}: ${e.state.boxesCollected} boxes, ${e.state.battlesFought} battles.${if (e.state.offerAvailable) " You have an Offer to check" else ""}"
                 if (!isCompleted) {
                     when (e.reason) {
-                        is Map.ExitReason.Completed -> null
-                        is Map.ExitReason.Failure -> Timber.w("Map exited with Failure")
-                        is Map.ExitReason.Unexpected -> Timber.e(e.reason.cause, "Map exited with Unexpected: ${e.reason.cause?.message}")
+                        is MapLogic.ExitReason.Completed -> null
+                        is MapLogic.ExitReason.Failure -> Timber.w("Map exited with Failure")
+                        is MapLogic.ExitReason.Unexpected -> Timber.e(e.reason.cause, "Map exited with Unexpected: ${e.reason.cause?.message}")
                     }
                 }
                 messages.notify(message)
                 messageBox.show(scriptExitedString, message)
             }
 
-            is VoidMirror.ExitException -> {
+            is VoidMirrorLogic.ExitException -> {
                 when (e.reason) {
-                    is VoidMirror.ExitReason.MaxRetriesReached -> {
+                    is VoidMirrorLogic.ExitReason.MaxRetriesReached -> {
                         val msg = "Defeat limit reached after ${e.state.totalAttempts} attempts with ${e.state.successfulRuns} wins"
                         messages.notify(msg)
                         messageBox.show(scriptExitedString, msg)
