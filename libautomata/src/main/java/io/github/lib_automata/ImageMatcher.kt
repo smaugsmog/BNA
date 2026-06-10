@@ -173,7 +173,7 @@ class RealImageMatcher @Inject constructor(
         val min = platformImpl.prefs.matchingScaleMin
         val max = platformImpl.prefs.matchingScaleMax
         return generateSequence(min) {
-            (it + 5).takeIf { it <= max }
+            (it + platformImpl.prefs.matchingScaleStep).takeIf { it <= max }
         }.map { it / 100.0 }.toList()
     }
 

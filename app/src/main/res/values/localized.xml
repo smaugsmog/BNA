@@ -180,6 +180,7 @@ Copy or rename it if you want to keep it."</string>
     <string name="p_fine_tune_scale">"Scale"</string>
     <string name="p_fine_tune_scale_min">"Min Scale"</string>
     <string name="p_fine_tune_scale_max">"Max Scale"</string>
+    <string name="p_fine_tune_scale_step">"Scale Step"</string>
     <string name="troubleshoot">"Troubleshooting"</string>
     <string name="battle_config_edit">"Edit config"</string>
     <string name="card_priority">"Card Priority"</string>

@@ -198,6 +198,8 @@ class PreferencesImpl @Inject constructor(
         override var matchingScaleMin by prefs.matchingScaleMin
 
         override var matchingScaleMax by prefs.matchingScaleMax
+
+        override var matchingScaleStep by prefs.matchingScaleStep
     }
 
     override val gestures = object :

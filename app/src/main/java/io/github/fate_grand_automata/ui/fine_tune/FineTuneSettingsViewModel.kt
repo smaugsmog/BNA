@@ -166,7 +166,7 @@ class FineTuneSettingsViewModel @Inject constructor(
                     icon = icon(R.drawable.ic_image_search),
                     valueRange = 50..150,
                     valueRepresentation = { "$it%" },
-                    hint = "Minimum template scale factor. Templates will be tested from this percentage up to max in 5% steps. Only change if the game renders at a non-standard UI scale."
+                    hint = "Minimum template scale factor. Templates will be tested from this percentage up to max in step increments. Only change if the game renders at a non-standard UI scale."
                 ),
                 FineTuneItem(
                     pref = prefs.matchingScaleMax,
@@ -174,7 +174,15 @@ class FineTuneSettingsViewModel @Inject constructor(
                     icon = icon(R.drawable.ic_image_search),
                     valueRange = 50..150,
                     valueRepresentation = { "$it%" },
-                    hint = "Maximum template scale factor. Templates will be tested from min up to this percentage in 5% steps. Only change if the game renders at a non-standard UI scale."
+                    hint = "Maximum template scale factor. Templates will be tested from min up to this percentage in step increments. Only change if the game renders at a non-standard UI scale."
+                ),
+                FineTuneItem(
+                    pref = prefs.matchingScaleStep,
+                    name = R.string.p_fine_tune_scale_step,
+                    icon = icon(R.drawable.ic_image_search),
+                    valueRange = 1..50,
+                    valueRepresentation = { "$it%" },
+                    hint = "Step size (in percent) between min and max scale. Default is 5%."
                 )
             )
         )

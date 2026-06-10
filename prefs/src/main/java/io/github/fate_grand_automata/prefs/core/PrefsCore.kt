@@ -66,6 +66,7 @@ class PrefsCore @Inject constructor(
 
     val matchingScaleMin = maker.int("matching_scale_min", 100)
     val matchingScaleMax = maker.int("matching_scale_max", 100)
+    val matchingScaleStep = maker.int("matching_scale_step", 5)
 
     val skillDelay = maker.int("skill_delay", 500)
     val waitMultiplier = maker.int("wait_multiplier", 100)

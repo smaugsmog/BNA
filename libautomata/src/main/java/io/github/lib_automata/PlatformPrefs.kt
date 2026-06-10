@@ -21,4 +21,9 @@ interface PlatformPrefs {
      * Maximum scale factor for template matching, stored as percentage (50-150).
      */
     var matchingScaleMax: Int
+
+    /**
+     * Step size for scaling templates, stored as percentage (default 5).
+     */
+    var matchingScaleStep: Int
 }
