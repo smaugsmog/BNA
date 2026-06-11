@@ -14,7 +14,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -73,14 +72,10 @@ private fun MoreOptionsContent(
                             MoreSettingsGroup.Storage -> {
                                 item {
                                     val summary by vm.storageSummary
-                                    val extractSummary by vm.extractSummary
-                                    val context = LocalContext.current
 
                                     StorageGroup(
                                         directoryName = summary ?: "",
-                                        onPickDirectory = pickDirectory,
-                                        extractSupportImages = { vm.performSupportImageExtraction(context) },
-                                        extractSummary = extractSummary
+                                        onPickDirectory = pickDirectory
                                     )
                                 }
                             }

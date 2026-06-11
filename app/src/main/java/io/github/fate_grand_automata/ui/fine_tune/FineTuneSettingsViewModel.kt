@@ -15,21 +15,31 @@ class FineTuneSettingsViewModel @Inject constructor(
 ) : ViewModel() {
     val groups = listOf(
         FineTuneGroup(
-            name = R.string.p_fine_tune_support,
+            name = R.string.p_fine_tune_scale,
             items = listOf(
                 FineTuneItem(
-                    pref = prefs.supportSwipesPerUpdate,
-                    name = R.string.p_fine_tune_support_swipes_per_update,
-                    icon = icon(R.drawable.ic_swipe),
-                    valueRange = 0..35,
-                    hint = "Number of times to scroll through support list before refreshing."
+                    pref = prefs.matchingScaleMin,
+                    name = R.string.p_fine_tune_scale_min,
+                    icon = icon(R.drawable.ic_image_search),
+                    valueRange = 50..150,
+                    valueRepresentation = { "$it%" },
+                    hint = "Minimum template scale factor. Templates will be tested from this percentage up to max in step increments. Only change if the game renders at a non-standard UI scale."
                 ),
                 FineTuneItem(
-                    pref = prefs.supportMaxUpdates,
-                    name = R.string.p_fine_tune_support_max_updates,
-                    icon = icon(R.drawable.ic_refresh),
-                    valueRange = 0..50,
-                    hint = "Maximum number of times to refresh in support screen after which the configured fallback option is used."
+                    pref = prefs.matchingScaleMax,
+                    name = R.string.p_fine_tune_scale_max,
+                    icon = icon(R.drawable.ic_image_search),
+                    valueRange = 50..150,
+                    valueRepresentation = { "$it%" },
+                    hint = "Maximum template scale factor. Templates will be tested from min up to this percentage in step increments. Only change if the game renders at a non-standard UI scale."
+                ),
+                FineTuneItem(
+                    pref = prefs.matchingScaleStep,
+                    name = R.string.p_fine_tune_scale_step,
+                    icon = icon(R.drawable.ic_image_search),
+                    valueRange = 1..50,
+                    valueRepresentation = { "$it%" },
+                    hint = "Step size (in percent) between min and max scale. Default is 5%."
                 )
             )
         ),
@@ -124,30 +134,6 @@ class FineTuneSettingsViewModel @Inject constructor(
             name = R.string.p_fine_tune_wait,
             items = listOf(
                 FineTuneItem(
-                    pref = prefs.skillDelay,
-                    name = R.string.p_fine_tune_skill_delay,
-                    icon = icon(R.drawable.ic_wand),
-                    valueRange = 0..2000,
-                    valueRepresentation = { "${it}ms" },
-                    hint = "Delay between pressing on skill and pressing on target servant."
-                ),
-                FineTuneItem(
-                    pref = prefs.waitBeforeTurn,
-                    name = R.string.p_fine_tune_wait_before_turn,
-                    icon = icon(R.drawable.ic_time),
-                    valueRange = 0..2000,
-                    valueRepresentation = { "${it}ms" },
-                    hint = "Delay before the skill sequence starts after Battle screen is detected. Slower devices might need longer delay."
-                ),
-                FineTuneItem(
-                    pref = prefs.waitBeforeCards,
-                    name = R.string.p_fine_tune_wait_before_cards,
-                    icon = icon(R.drawable.ic_card),
-                    valueRange = 0..6000,
-                    valueRepresentation = { "${it}ms" },
-                    hint = "Delay between clicking on Attack button and clicking on face-cards/NP. Slower devices might need longer delay."
-                ),
-                FineTuneItem(
                     pref = prefs.waitMultiplier,
                     name = R.string.p_fine_tune_wait_multiplier,
                     icon = icon(R.drawable.ic_time),
@@ -157,35 +143,6 @@ class FineTuneSettingsViewModel @Inject constructor(
                 )
             )
         ),
-        FineTuneGroup(
-            name = R.string.p_fine_tune_scale,
-            items = listOf(
-                FineTuneItem(
-                    pref = prefs.matchingScaleMin,
-                    name = R.string.p_fine_tune_scale_min,
-                    icon = icon(R.drawable.ic_image_search),
-                    valueRange = 50..150,
-                    valueRepresentation = { "$it%" },
-                    hint = "Minimum template scale factor. Templates will be tested from this percentage up to max in step increments. Only change if the game renders at a non-standard UI scale."
-                ),
-                FineTuneItem(
-                    pref = prefs.matchingScaleMax,
-                    name = R.string.p_fine_tune_scale_max,
-                    icon = icon(R.drawable.ic_image_search),
-                    valueRange = 50..150,
-                    valueRepresentation = { "$it%" },
-                    hint = "Maximum template scale factor. Templates will be tested from min up to this percentage in step increments. Only change if the game renders at a non-standard UI scale."
-                ),
-                FineTuneItem(
-                    pref = prefs.matchingScaleStep,
-                    name = R.string.p_fine_tune_scale_step,
-                    icon = icon(R.drawable.ic_image_search),
-                    valueRange = 1..50,
-                    valueRepresentation = { "$it%" },
-                    hint = "Step size (in percent) between min and max scale. Default is 5%."
-                )
-            )
-        )
     )
 
     fun resetAll() =
