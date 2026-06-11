@@ -500,4 +500,7 @@ After pressing on the button, switch the app filter from \"Not optimized\" to \"
     <string name="p_void_mirror_summary">"Configure Void Mirror buff priorities"</string>
     <string name="vm_select_buffs">"Select Buffs"</string>
     <string name="vm_no_buffs_selected">"No buffs selected. Tap Select Buffs to choose."</string>
+
+    <string name="p_dailies">"Dailies"</string>
+    <string name="p_dailies_summary">"Configure which daily steps to run"</string>
 </resources>

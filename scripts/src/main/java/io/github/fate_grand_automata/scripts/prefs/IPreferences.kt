@@ -2,6 +2,7 @@ package io.github.fate_grand_automata.scripts.prefs
 
 import io.github.fate_grand_automata.scripts.enums.GameServer
 import io.github.fate_grand_automata.scripts.enums.ScriptModeEnum
+import io.github.fate_grand_automata.scripts.enums.DailiesStep
 import io.github.fate_grand_automata.scripts.enums.VoidMirrorBuff
 import io.github.lib_automata.PlatformPrefs
 import kotlin.time.Duration
@@ -50,6 +51,8 @@ interface IPreferences {
     var ceBombTargetRarity: Int
 
     val voidMirrorBuffPriority: List<VoidMirrorBuff>
+
+    val dailiesEnabledSteps: List<DailiesStep>
 
     val servant: IServantEnhancementPreferences
 

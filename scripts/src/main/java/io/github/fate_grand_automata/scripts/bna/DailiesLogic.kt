@@ -2,6 +2,7 @@ package io.github.fate_grand_automata.scripts.bna
 
 import io.github.fate_grand_automata.scripts.IFgoAutomataApi
 import io.github.fate_grand_automata.scripts.Images
+import io.github.fate_grand_automata.scripts.enums.DailiesStep
 import io.github.lib_automata.ExitManager
 import io.github.lib_automata.Location
 import io.github.lib_automata.dagger.ScriptScope
@@ -27,11 +28,8 @@ class DailiesLogic @Inject constructor(
 
     class ExitException(val reason: ExitReason, val state: ExitState) : Exception()
 
-    // TODO: Replace these with actual pref checks
-    private val goldCollectionEnabled = true
-    private val sendFlowersEnabled = true
-    private val hypermarketEnabled = false
-    private val mapEnabled = true
+    private val enabledSteps: List<DailiesStep>
+        get() = prefs.dailiesEnabledSteps
 
     private sealed class FlowerAction {
         data class Claim(val location: Location) : FlowerAction()
@@ -42,22 +40,22 @@ class DailiesLogic @Inject constructor(
         var steps = 0
 
         try {
-            if (goldCollectionEnabled) {
+            if (DailiesStep.GoldCollection in enabledSteps) {
                 collectGold()
                 steps++
             }
 
-            if (sendFlowersEnabled) {
+            if (DailiesStep.SendFlowers in enabledSteps) {
                 sendFlowers()
                 steps++
             }
 
-            if (hypermarketEnabled) {
+            if (DailiesStep.Hypermarket in enabledSteps) {
                 collectHypermarket()
                 steps++
             }
 
-            if (mapEnabled) {
+            if (DailiesStep.Map in enabledSteps) {
                 try {
                     runMap()
                 } catch (e: MapLogic.ExitException) {

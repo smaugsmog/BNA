@@ -5,6 +5,7 @@ import com.fredporciuncula.flow.preferences.Serializer
 import dagger.hilt.android.qualifiers.ApplicationContext
 import io.github.fate_grand_automata.scripts.enums.GameServer
 import io.github.fate_grand_automata.scripts.enums.ScriptModeEnum
+import io.github.fate_grand_automata.scripts.enums.DailiesStep
 import io.github.fate_grand_automata.scripts.enums.VoidMirrorBuff
 import io.github.lib_automata.Location
 import javax.inject.Inject
@@ -129,6 +130,28 @@ class PrefsCore @Inject constructor(
             override fun serialize(value: List<GameServer>): String = value.joinToString(separator)
 
         }
+    )
+
+    val dailiesEnabledSteps = maker.serialized(
+        "dailies_enabled_steps",
+        serializer = object : Serializer<List<DailiesStep>> {
+            private val separator = ","
+
+            override fun deserialize(serialized: String) =
+                serialized
+                    .split(separator)
+                    .mapNotNull { m ->
+                        try {
+                            enumValueOf<DailiesStep>(m)
+                        } catch (e: Exception) {
+                            null
+                        }
+                    }
+
+            override fun serialize(value: List<DailiesStep>) =
+                value.joinToString(separator) { m -> m.name }
+        },
+        default = listOf(DailiesStep.GoldCollection, DailiesStep.SendFlowers, DailiesStep.Map)
     )
 
     val voidMirrorBuffPriority = maker.serialized(

@@ -215,6 +215,7 @@ sealed class MainScreenDestinations {
 //    object Donate : MainScreenDestinations()
     object VoidMirror : MainScreenDestinations()
 //    object BattleConfigs : MainScreenDestinations()
+    object Dailies : MainScreenDestinations()
     object MoreOptions : MainScreenDestinations()
     object AccessibilitySettings : MainScreenDestinations()
     object OverlaySettings : MainScreenDestinations()
@@ -277,6 +278,15 @@ private fun MainScreenContent(
                             summary = stringResource(R.string.p_void_mirror_summary),
                             icon = icon(R.drawable.ic_formation),
                             onClick = { navigate(MainScreenDestinations.VoidMirror) }
+                        )
+
+                        HorizontalDivider()
+
+                        Preference(
+                            title = stringResource(R.string.p_dailies),
+                            summary = stringResource(R.string.p_dailies_summary),
+                            icon = icon(R.drawable.ic_dailies),
+                            onClick = { navigate(MainScreenDestinations.Dailies) }
                         )
 
                         HorizontalDivider()

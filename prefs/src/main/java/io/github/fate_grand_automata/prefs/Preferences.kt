@@ -3,6 +3,7 @@ package io.github.fate_grand_automata.prefs
 import io.github.fate_grand_automata.prefs.core.PrefsCore
 import io.github.fate_grand_automata.prefs.core.map
 import io.github.fate_grand_automata.scripts.enums.GameServer
+import io.github.fate_grand_automata.scripts.enums.DailiesStep
 import io.github.fate_grand_automata.scripts.enums.VoidMirrorBuff
 import io.github.fate_grand_automata.scripts.prefs.IBattleConfig
 import io.github.fate_grand_automata.scripts.prefs.IGesturesPreferences
@@ -118,6 +119,8 @@ class PreferencesImpl @Inject constructor(
     private val autoSkillMap = mutableMapOf<String, IBattleConfig>()
 
     override val voidMirrorBuffPriority by prefs.voidMirrorBuffPriority
+
+    override val dailiesEnabledSteps by prefs.dailiesEnabledSteps
 
     override val servant: IServantEnhancementPreferences =
         ServantEnhancementPrefs(prefs.servantEnhancement)
