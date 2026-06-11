@@ -128,4 +128,14 @@ enum class Images(val path: String) {
     VoidRageAttack("BN/voidBuffs/void_rage_attack.png"),
 
     MetaSpaceBattleButton("BN/meta_battle_button.png"),
+
+    DailiesGoldIcon("BN/dailies_gold_icon.png"),
+    DailiesGoldCollect("BN/dailies_gold_collect.png"),
+    DailiesFlowerClaimAll("BN/dailies_flower_claim_all.png"),
+    DailiesFlowerSendAll("BN/dailies_flower_send_all.png"),
+    DailiesHypermarketIcon("BN/dailies_hypermarket_icon.png"),
+    DailiesHypermarketDailyDeal("BN/dailies_hypermarket_daily_deal.png"),
+    DailiesHypermarketFree("BN/dailies_hypermarket_free.png"),
+    DailiesHypermarketExit("BN/dailies_hypermarket_exit.png"),
+    DailiesMapEntry("BN/dailies_map_entry.png"),
 }

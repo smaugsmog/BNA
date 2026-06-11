@@ -25,7 +25,7 @@ import io.github.fate_grand_automata.scripts.entrypoints.SupportImageMaker
 import io.github.fate_grand_automata.scripts.bna.MetaspaceLogic
 import io.github.fate_grand_automata.scripts.bna.MapLogic
 import io.github.fate_grand_automata.scripts.bna.VoidMirrorLogic
-import io.github.fate_grand_automata.scripts.bna.entrypoints.Dailies
+import io.github.fate_grand_automata.scripts.bna.DailiesLogic
 import io.github.fate_grand_automata.ui.launcher.BnaScript
 import io.github.fate_grand_automata.ui.launcher.BnaScriptLauncher
 import io.github.fate_grand_automata.scripts.enums.GameServer
@@ -281,8 +281,13 @@ class ScriptManager @Inject constructor(
                 }
             }
 
-            is Dailies.ExitException -> {
-                messages.notify("Dailies completed: ${e.state.stepsCompleted} steps")
+            is DailiesLogic.ExitException -> {
+                val isCompleted = e.reason == DailiesLogic.ExitReason.Completed
+                val message = "Dailies ${if (isCompleted) "completed" else "failed"}: ${e.state.stepsCompleted} steps"
+                messages.notify(message)
+                if (!isCompleted) {
+                    messageBox.show(scriptExitedString, message)
+                }
             }
 
             is ScriptAbortException -> {

@@ -150,4 +150,44 @@ class BnaLocations @Inject constructor(
     val victoryDefeatRegion: Region
         get() = Region(-88, 216, 88, 88)
             .xFromRight()
+
+    // ===== Dailies =====
+
+    /** Generic location to tap off a popup / close it (top-left corner). */
+    val dailiesClosePopupLocation = Location(20, 20)
+
+    /** Location of the flowers / friends button on the main screen (bottom-left). */
+    val dailiesFlowersButton: Location
+        get() = Location(20, -20)
+            .yFromBottom()
+
+    /** Region where the claim-all / send-all buttons appear on the friend screen. */
+    val dailiesFlowersButtonRegion: Region
+        get() = Region(-300, -100, 300, 100)
+            .xFromRight()
+            .yFromBottom()
+
+    /** Region where the gold icon appears on the main screen. */
+    val dailiesGoldIconRegion: Region
+        get() = Region(-400, -200, 800, 400)
+            .xFromCenter()
+            .yFromCenter()
+
+    /** Region where the collect button appears inside the gold popover. */
+    val dailiesGoldCollectRegion: Region
+        get() = Region(-200, -100, 400, 200)
+            .xFromCenter()
+            .yFromCenter()
+
+    /** Region to search for the hypermarket icon on the main screen. */
+    val dailiesHypermarketSearchRegion: Region
+        get() = Region(-400, -200, 800, 400)
+            .xFromCenter()
+            .yFromCenter()
+
+    /** Region to search for the map-entry image on the main screen. */
+    val dailiesMapEntryRegion: Region
+        get() = Region(-400, -200, 800, 400)
+            .xFromCenter()
+            .yFromCenter()
 }
