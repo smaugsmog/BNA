@@ -137,5 +137,12 @@ enum class Images(val path: String) {
     DailiesHypermarketDailyDeal("BN/dailies_hypermarket_daily_deal.png"),
     DailiesHypermarketFree("BN/dailies_hypermarket_free.png"),
     DailiesHypermarketExit("BN/dailies_hypermarket_exit.png"),
+    EmptyTeamSlot("BN/empty_team_slot.png"),
+    FactionNature("BN/nature.png"),
+    FactionMachine("BN/machine.png"),
+    FactionMartial("BN/martial.png"),
+    FactionHacker("BN/hacker.png"),
+    FactionFallen("BN/fallen.png"),
+
     DailiesMapEntry("BN/dailies_map_entry.png"),
 }

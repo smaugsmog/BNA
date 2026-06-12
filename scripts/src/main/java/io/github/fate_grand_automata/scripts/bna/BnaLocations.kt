@@ -133,6 +133,15 @@ class BnaLocations @Inject constructor(
         .xFromRight()
         .yFromBottom()
 
+    // TODO: actual coordinates — 3-wide × 2-tall grid at top of team screen
+    val teamSlotsSearchRegion = Region(0, 0, 0, 0)
+
+    // TODO: actual coordinates — single-row hero portrait bar at bottom
+    val heroSelectionBarRegion = Region(0, 0, 0, 0)
+
+    // TODO: actual coordinates — faction badges within filter popup
+    val filterWindowFactionRegion = Region(0, 0, 0, 0)
+
     // ===== Battle Results Screen =====
 
     /** Bottom-right continue button on the victory/defeat results screen. */
